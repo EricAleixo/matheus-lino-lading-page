@@ -29,16 +29,12 @@ export function HeroSection() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,var(--ink)_0%,var(--deep)_100%)] opacity-90"
       />
-      {/* Grid ambiental, quase imperceptível e ausente no mobile. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-1/2 hidden w-px bg-steel/10 lg:block"
-      />
 
       <div className="relative mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-12">
         <BrandBar />
 
-        <div className="grid gap-12 pt-12 pb-16 sm:pt-16 lg:grid-cols-12 lg:gap-10 lg:pt-24 lg:pb-28">
+        <div className="grid gap-12 pt-12 pb-16 sm:pt-16 lg:grid-cols-12 lg:gap-10 lg:pt-24 lg:pb-24">
+
           <div className="lg:col-span-8">
             <div className="flex items-center gap-3">
               <span className="tag-mono text-steel">01</span>
