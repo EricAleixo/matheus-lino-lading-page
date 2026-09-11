@@ -11,8 +11,7 @@
  * Tipografia:
  *   SZTOS (Test/Demo) apenas em marcadores curtos sem acentos — a versão
  *   licenciada não possui acentuação, pontuação nem a SZTOS Expanded.
- *   Archivo (com eixo de largura) é a display provisória das headlines.
- *   IBM Plex Mono nos identificadores; IBM Plex Sans na leitura.
+ *   Sora é a display provisória das headlines; Manrope sustenta a leitura.
  */
 
 @font-face {
@@ -36,10 +35,10 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
 
-  --font-display: "Archivo", "Archivo Fallback", system-ui, sans-serif;
-  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
-  --font-brand: "SZTOS", "Archivo", system-ui, sans-serif;
+  --font-display: "Sora", system-ui, sans-serif;
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-mono: "Manrope", system-ui, sans-serif;
+  --font-brand: "SZTOS", "Sora", system-ui, sans-serif;
 
   --color-ink: var(--ink);
   --color-deep: var(--deep);
@@ -97,6 +96,10 @@
   --border: oklch(0.6908 0.0372 256.4 / 40%);
   --input: oklch(0.6908 0.0372 256.4 / 55%);
   --ring: var(--deep);
+  --hero-glow: oklch(0.34 0.07 253.3 / 32%);
+  --hero-sheen: oklch(0.9192 0.0055 275 / 9%);
+  --soft-shadow: 0 24px 64px oklch(0.0924 0.0211 239.8 / 14%);
+  --button-shadow: 0 12px 40px oklch(0.9192 0.0055 275 / 13%);
 }
 
 .dark {
@@ -151,19 +154,33 @@
   font-family: var(--font-mono);
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.12em;
   font-size: 0.6875rem;
   line-height: 1;
 }
 
-/* Headlines: Archivo levemente expandida, sem compressao horizontal. */
+/* Headlines: Sora em peso controlado, com ritmo confortável no mobile. */
 @utility headline {
   font-family: var(--font-display);
-  font-variation-settings: "wdth" 108;
   font-weight: 600;
-  letter-spacing: -0.015em;
-  line-height: 1.08;
+  letter-spacing: 0;
+  line-height: 1.1;
   text-wrap: balance;
+}
+
+@utility hero-atmosphere {
+  background:
+    radial-gradient(circle at 84% 8%, var(--hero-glow), transparent 34%),
+    radial-gradient(circle at 8% 68%, var(--hero-sheen), transparent 27%),
+    linear-gradient(165deg, var(--ink) 16%, var(--deep) 72%, var(--ink) 100%);
+}
+
+@utility soft-surface {
+  box-shadow: var(--soft-shadow);
+}
+
+@utility luminous-button {
+  box-shadow: var(--button-shadow);
 }
 
 @utility rule-h {

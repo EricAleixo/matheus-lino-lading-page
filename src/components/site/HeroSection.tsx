@@ -1,88 +1,48 @@
+import { ArrowDownRight } from "lucide-react";
+
 import { BrandBar } from "./BrandBar";
 
 const WHATSAPP_URL = "https://wa.me/558391247521";
 
-/**
- * Carga acumulada: linguagem ambiental. Não repete a lista de
- * responsabilidades, apenas sugere acúmulo antes da decisão.
- */
-function LoadMarks() {
-  const marks = [34, 52, 41, 68, 47, 76, 58, 88, 62, 100];
-  return (
-    <div aria-hidden="true" className="flex items-end gap-2">
-      {marks.map((h, i) => (
-        <span
-          key={i}
-          className="w-px bg-steel"
-          style={{ height: `${h * 0.32}px`, opacity: 0.25 + i * 0.055 }}
-        />
-      ))}
-    </div>
-  );
-}
-
 export function HeroSection() {
   return (
-    <section className="dark relative isolate overflow-hidden bg-ink text-mist">
-      {/* Profundidade: transição ink -> deep, sem gradiente chamativo. */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,var(--ink)_0%,var(--deep)_100%)] opacity-90"
-      />
-
-      <div className="relative mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-12">
+    <section className="hero-atmosphere dark relative isolate overflow-hidden text-mist">
+      <div aria-hidden="true" className="pointer-events-none absolute -top-28 right-[-9rem] h-80 w-80 rounded-full border border-steel/10 bg-mist/[0.03] blur-sm sm:h-96 sm:w-96" />
+      <div className="relative mx-auto flex min-h-[92svh] w-full max-w-[1180px] flex-col px-5 pb-24 sm:px-8 lg:min-h-[760px] lg:px-12 lg:pb-36">
         <BrandBar />
-
-        <div className="grid gap-12 pt-12 pb-16 sm:pt-16 lg:grid-cols-12 lg:gap-10 lg:pt-24 lg:pb-24">
-
+        <div className="my-auto grid gap-12 pt-14 lg:grid-cols-12 lg:items-end lg:gap-10 lg:pt-20">
           <div className="lg:col-span-8">
-            <div className="flex items-center gap-3">
-              <span className="tag-mono text-steel">01</span>
-              <span aria-hidden="true" className="h-px w-8 bg-steel/40" />
-              <span className="tag-brand text-steel">Signal</span>
-            </div>
-
-            <h1 className="headline mt-7 text-[2rem] text-mist sm:text-[2.75rem] lg:text-[3.5rem]">
+            <p className="text-xs font-medium text-steel">Clareza para decidir</p>
+            <h1 className="headline mt-5 max-w-[18ch] text-[2.375rem] text-mist sm:text-[3rem] lg:text-[4.25rem]">
               Você já tem problemas demais na empresa para ainda precisar decidir o
               marketing{" "}
-              <span className="border-b border-steel/50 pb-1">no escuro.</span>
+              <span className="font-normal text-steel">no escuro.</span>
             </h1>
-
-            <p className="mt-8 max-w-[36ch] text-[1.0625rem] leading-[1.65] text-steel sm:text-[1.125rem] lg:max-w-[52ch]">
+            <p className="mt-7 max-w-[38ch] text-base leading-[1.75] text-steel sm:text-lg lg:max-w-[48ch]">
               Fornecedores, equipe, financeiro, clientes, operação, impostos... e ainda
               sobra para você decidir quanto investir, onde investir e descobrir sozinho
               se está fazendo a escolha certa.
             </p>
-
-            <div className="mt-10">
+            <div className="mt-9">
               <a
                 href={WHATSAPP_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[54px] w-full items-center justify-between gap-4 bg-mist px-6 text-left text-[0.9375rem] font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-steel sm:w-auto sm:text-base"
+                className="luminous-button inline-flex min-h-16 w-full items-center justify-between gap-4 rounded-full border border-mist/70 bg-mist px-6 text-left text-[0.9375rem] font-semibold text-ink transition-[transform,background-color,box-shadow] duration-200 active:scale-[0.98] hover:bg-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-steel sm:w-auto sm:min-w-[390px] sm:text-base"
               >
                 Quero tomar decisões melhores no marketing
-                <span aria-hidden="true" className="text-lg leading-none">
-                  →
-                </span>
+                <ArrowDownRight aria-hidden="true" className="h-5 w-5 shrink-0" strokeWidth={1.7} />
               </a>
             </div>
           </div>
-
-          <div className="lg:col-span-4 lg:flex lg:items-end lg:justify-end lg:pb-1">
-            <div className="flex items-center justify-between gap-6 border-t border-steel/20 pt-6 lg:w-full lg:flex-col lg:items-start lg:gap-6">
-              <div className="min-w-0">
-                <p className="tag-mono text-steel/70">Carga acumulada</p>
-                <p className="mt-3 max-w-[26ch] text-sm leading-relaxed text-steel/80">
-                  Decisões chegando ao mesmo tempo, todas esperando alguém decidir.
-                </p>
-              </div>
-              <LoadMarks />
-            </div>
+          <div className="hidden lg:col-span-3 lg:col-start-10 lg:block lg:pb-2">
+            <p className="max-w-[22ch] text-sm leading-7 text-steel/75">
+              Decisões chegando ao mesmo tempo, todas esperando alguém decidir.
+            </p>
           </div>
-
         </div>
       </div>
+      <div aria-hidden="true" className="absolute -bottom-px left-0 h-14 w-full rounded-t-[2.5rem] bg-mist sm:h-20 sm:rounded-t-[3.5rem]" />
     </section>
   );
 }
