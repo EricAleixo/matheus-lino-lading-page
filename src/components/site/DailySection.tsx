@@ -26,7 +26,7 @@ export function DailySection() {
             </h2>
           </div>
 
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1">
             <ol className="border-t border-ink/15">
               {QUESTIONS.map((question, index) => {
                 const isLast = index === QUESTIONS.length - 1;
