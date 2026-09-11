@@ -62,7 +62,7 @@ export function DailySection() {
             </ol>
           </div>
 
-          <div className="lg:col-span-7 lg:col-start-6">
+          <div className="lg:col-span-5 lg:col-start-1 lg:row-start-2 lg:self-start">
             <div className="space-y-6 text-[1.0625rem] leading-[1.7] sm:text-[1.125rem]">
               <p className="max-w-[46ch] text-ink">
                 Enquanto você tenta responder isso, ainda existem funcionários,
