@@ -7,13 +7,12 @@ import qmLogo from "@/assets/qm-logo.png.asset.json";
  */
 export function BrandBar() {
   return (
-    <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 border-b border-steel/20 py-5">
+    <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-6 sm:py-8">
       <div className="min-w-0">
-        <p className="tag-brand text-[0.8125rem] text-mist">Matheus Lino</p>
-        <p className="tag-mono mt-2 text-[0.625rem] text-steel">Estratégia de marketing</p>
+        <p className="tag-brand text-[0.75rem] text-mist">Matheus Lino</p>
+        <p className="mt-2 text-[0.6875rem] font-medium text-steel">Estratégia de marketing</p>
       </div>
-      <div className="flex shrink-0 items-center gap-4 pl-4">
-        <span aria-hidden="true" className="h-8 w-px bg-steel/25" />
+      <div className="shrink-0 pl-3">
         <img
           src={qmLogo.url}
           alt="Quality Master"
@@ -22,7 +21,6 @@ export function BrandBar() {
           height={507}
         />
       </div>
-
     </header>
   );
 }

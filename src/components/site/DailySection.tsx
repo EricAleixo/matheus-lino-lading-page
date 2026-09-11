@@ -10,24 +10,18 @@ const QUESTIONS = [
 
 export function DailySection() {
   return (
-    <section className="bg-mist text-ink">
-      <div className="mx-auto w-full max-w-[1180px] px-5 pt-16 pb-20 sm:px-8 sm:pt-20 lg:px-12 lg:pt-28 lg:pb-32">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-16">
+    <section className="relative bg-mist text-ink">
+      <div aria-hidden="true" className="pointer-events-none absolute right-0 top-0 h-96 w-3/4 bg-[radial-gradient(circle_at_top_right,var(--paper),transparent_66%)] opacity-80" />
+      <div className="relative mx-auto w-full max-w-[1180px] px-5 pt-8 pb-24 sm:px-8 sm:pt-12 lg:px-12 lg:pt-16 lg:pb-32">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-16 lg:gap-y-20">
           <div className="lg:col-span-5 lg:row-start-1">
-
-            <div className="flex items-center gap-3">
-              <span className="tag-mono text-ink/50">02</span>
-              <span aria-hidden="true" className="h-px w-8 bg-ink/25" />
-              <span className="tag-brand text-ink/50">Priority</span>
-            </div>
-
-            <h2 className="headline mt-7 text-[1.75rem] sm:text-[2.25rem] lg:text-[2.75rem]">
+            <p className="text-xs font-semibold text-ink/50">O que precisa vir primeiro?</p>
+            <h2 className="headline mt-5 max-w-[15ch] text-[2rem] sm:text-[2.5rem] lg:text-[3.25rem]">
               Administrar uma empresa já exige decisões demais.
             </h2>
           </div>
-
           <div className="lg:col-span-7 lg:col-start-6 lg:row-span-2 lg:row-start-1">
-            <ol className="border-t border-ink/15">
+            <ol className="space-y-1 sm:space-y-2">
               {QUESTIONS.map((question, index) => {
                 const isLast = index === QUESTIONS.length - 1;
                 return (
@@ -35,35 +29,21 @@ export function DailySection() {
                     key={question}
                     className={
                       isLast
-                        ? "grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 border-b border-ink/25 bg-ink/[0.04] py-6 pl-3 sm:grid-cols-[3rem_minmax(0,1fr)]"
-                        : "grid grid-cols-[2.25rem_minmax(0,1fr)] gap-x-3 border-b border-ink/10 py-5 sm:grid-cols-[3rem_minmax(0,1fr)]"
+                        ? "soft-surface mt-5 rounded-[1.75rem] bg-ink px-6 py-7 text-mist sm:px-8 sm:py-9"
+                        : "px-1 py-3 sm:py-4"
                     }
                   >
-                    <span className="tag-mono pt-1.5 text-ink/40">
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <div className="min-w-0">
-                      <p
-                        className={
-                          isLast
-                            ? "headline text-[1.25rem] sm:text-[1.5rem] lg:text-[1.75rem]"
-                            : "headline text-[1.0625rem] font-medium text-ink/85 sm:text-[1.25rem]"
-                        }
-                      >
-                        {question}
-                      </p>
-                      {isLast && (
-                        <p className="tag-brand mt-4 text-ink/50">Decision</p>
-                      )}
-                    </div>
+                    <p className={isLast ? "headline text-[1.375rem] sm:text-[1.625rem]" : "text-[1.0625rem] font-medium leading-snug text-ink/75 sm:text-xl"}>
+                      {question}
+                    </p>
+                    {isLast && <p className="mt-4 text-xs font-medium text-steel">A decisão por trás das outras decisões</p>}
                   </li>
                 );
               })}
             </ol>
           </div>
-
           <div className="lg:col-span-5 lg:col-start-1 lg:row-start-2 lg:self-start">
-            <div className="space-y-6 text-[1.0625rem] leading-[1.7] sm:text-[1.125rem]">
+            <div className="space-y-6 text-base leading-[1.8] sm:text-[1.125rem]">
               <p className="max-w-[46ch] text-ink">
                 Enquanto você tenta responder isso, ainda existem funcionários,
                 fornecedores, clientes, impostos, caixa e operação esperando alguma
