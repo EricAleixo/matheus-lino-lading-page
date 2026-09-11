@@ -69,8 +69,8 @@ export function HeroSection() {
             </div>
           </div>
 
-          <div className="lg:col-span-4 lg:pt-16">
-            <div className="flex items-center justify-between gap-6 border-t border-steel/20 pt-6 lg:flex-col lg:items-start lg:gap-8">
+          <div className="lg:col-span-4 lg:flex lg:items-end lg:justify-end lg:pb-1">
+            <div className="flex items-center justify-between gap-6 border-t border-steel/20 pt-6 lg:w-full lg:flex-col lg:items-start lg:gap-6">
               <div className="min-w-0">
                 <p className="tag-mono text-steel/70">Carga acumulada</p>
                 <p className="mt-3 max-w-[26ch] text-sm leading-relaxed text-steel/80">
@@ -80,6 +80,7 @@ export function HeroSection() {
               <LoadMarks />
             </div>
           </div>
+
         </div>
       </div>
     </section>

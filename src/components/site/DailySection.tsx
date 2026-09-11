@@ -12,8 +12,9 @@ export function DailySection() {
   return (
     <section className="bg-mist text-ink">
       <div className="mx-auto w-full max-w-[1180px] px-5 pt-16 pb-20 sm:px-8 sm:pt-20 lg:px-12 lg:pt-28 lg:pb-32">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-5">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-12 lg:gap-y-16">
+          <div className="lg:col-span-5 lg:row-start-1">
+
             <div className="flex items-center gap-3">
               <span className="tag-mono text-ink/50">02</span>
               <span aria-hidden="true" className="h-px w-8 bg-ink/25" />
