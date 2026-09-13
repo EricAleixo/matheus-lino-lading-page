@@ -197,3 +197,37 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Ambientes escuros: variação tonal sem áreas chapadas. */
+@utility deep-atmosphere {
+  background:
+    radial-gradient(circle at 12% 6%, var(--hero-sheen), transparent 30%),
+    radial-gradient(circle at 88% 92%, var(--hero-glow), transparent 38%),
+    linear-gradient(180deg, var(--ink) 0%, var(--deep) 58%, var(--ink) 100%);
+}
+
+@utility veil-atmosphere {
+  background:
+    radial-gradient(circle at 78% 14%, var(--hero-glow), transparent 42%),
+    linear-gradient(200deg, var(--deep) 0%, var(--ink) 62%, var(--deep) 100%);
+}
+
+/* Ambiente claro com iluminação difusa. */
+@utility paper-atmosphere {
+  background:
+    radial-gradient(circle at 84% 4%, var(--paper), transparent 55%),
+    radial-gradient(circle at 4% 82%, var(--paper), transparent 48%),
+    linear-gradient(180deg, var(--mist) 0%, var(--paper) 52%, var(--mist) 100%);
+}
+
+@utility glass-surface {
+  background-color: oklch(0.9192 0.0055 275 / 6%);
+  border: 1px solid oklch(0.6908 0.0372 256.4 / 18%);
+  backdrop-filter: blur(8px);
+}
+
+@utility glass-surface-light {
+  background-color: oklch(1 0 0 / 55%);
+  border: 1px solid oklch(0.6908 0.0372 256.4 / 26%);
+  backdrop-filter: blur(8px);
+}
