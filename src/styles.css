@@ -175,12 +175,22 @@
     linear-gradient(165deg, var(--ink) 16%, var(--deep) 72%, var(--ink) 100%);
 }
 
+@utility overload-canvas {
+  background:
+    radial-gradient(ellipse 65% 55% at 90% 10%, oklch(0.28 0.06 253.3 / 36%), transparent 60%),
+    radial-gradient(ellipse 55% 45% at 10% 40%, oklch(0.35 0.05 256.4 / 18%), transparent 65%),
+    radial-gradient(ellipse 70% 50% at 80% 80%, oklch(0.22 0.05 253.3 / 30%), transparent 70%),
+    linear-gradient(180deg, var(--ink) 0%, var(--deep) 48%, var(--ink) 100%);
+}
+
 @utility soft-surface {
   box-shadow: var(--soft-shadow);
 }
 
 @utility luminous-button {
-  box-shadow: var(--button-shadow);
+  box-shadow:
+    0 0 28px oklch(0.9192 0.0055 275 / 16%),
+    0 10px 30px oklch(0.0924 0.0211 239.8 / 40%);
 }
 
 @utility rule-h {
@@ -224,6 +234,34 @@
   background-color: oklch(0.9192 0.0055 275 / 6%);
   border: 1px solid oklch(0.6908 0.0372 256.4 / 18%);
   backdrop-filter: blur(8px);
+}
+
+@utility glass-panel-dark {
+  background-color: oklch(0.1689 0.0525 253.3 / 35%);
+  border: 1px solid oklch(0.6908 0.0372 256.4 / 16%);
+  backdrop-filter: blur(12px);
+}
+
+@utility glass-panel-accent {
+  background: linear-gradient(
+    135deg,
+    oklch(0.6908 0.0372 256.4 / 16%),
+    oklch(0.1689 0.0525 253.3 / 60%)
+  );
+  border: 1px solid oklch(0.9192 0.0055 275 / 38%);
+  box-shadow: 0 0 35px oklch(0.6908 0.0372 256.4 / 15%);
+  backdrop-filter: blur(12px);
+}
+
+@utility ambient-tag {
+  background-color: oklch(0.9192 0.0055 275 / 3.5%);
+  border: 1px solid oklch(0.6908 0.0372 256.4 / 14%);
+  color: oklch(0.6908 0.0372 256.4 / 75%);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
 }
 
 @utility glass-surface-light {

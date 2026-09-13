@@ -1,5 +1,3 @@
-import { Section, Eyebrow } from "./primitives";
-
 const CHANGES = [
   "O mercado muda.",
   "Concorrentes reagem.",
@@ -10,46 +8,65 @@ const CHANGES = [
 
 export function ContinuousSection() {
   return (
-    <Section tone="mist">
+    <section className="paper-atmosphere relative isolate overflow-hidden pt-20 pb-24 text-ink sm:pt-28 sm:pb-32 lg:pt-32 lg:pb-36">
+      {/* Luz ambiente suave */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-[radial-gradient(ellipse_at_top_left,var(--paper),transparent_72%)]"
+        className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top_left,var(--paper),transparent_72%)]"
       />
-      <div className="relative grid gap-14 lg:grid-cols-12 lg:gap-x-16">
-        <div className="lg:col-span-6">
-          <Eyebrow>Acompanhamento contínuo</Eyebrow>
-          <h2 className="headline mt-5 max-w-[24ch] text-[1.875rem] sm:text-[2.25rem] lg:text-[2.75rem]">
-            Porque a decisão certa hoje pode não ser a decisão certa daqui a três meses.
-          </h2>
-          <div className="mt-10 space-y-3">
-            {CHANGES.map((item) => (
-              <p key={item} className="text-[1.0625rem] leading-snug text-ink/60 sm:text-[1.1875rem]">
-                {item}
+
+      <div className="relative mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-12">
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-x-16 lg:items-start">
+          {/* Coluna Esquerda: Headline e Dinâmica de Mercado */}
+          <div className="lg:col-span-6">
+            <h2 className="headline text-[2.125rem] leading-[1.1] text-ink sm:text-[2.75rem] lg:text-[3.25rem]">
+              Porque a decisão certa hoje pode não ser a decisão certa daqui a três meses.
+            </h2>
+
+            <div className="mt-8 flex flex-wrap gap-2.5 sm:mt-10">
+              {CHANGES.map((item) => (
+                <span
+                  key={item}
+                  className="glass-surface-light rounded-full px-4 py-2 text-sm font-medium text-ink/75 sm:text-[0.9375rem]"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Coluna Direita: Análise Mensal e Aprendizado Contínuo */}
+          <div className="lg:col-span-6 lg:pt-2">
+            <p className="text-base leading-[1.8] text-ink/80 sm:text-lg">
+              Por isso, todos os meses analisamos o que aconteceu, comparamos resultados,
+              identificamos avanços e problemas e usamos os dados para responder:
+            </p>
+
+            {/* Card Escuro de Destaque da Pergunta Mensal */}
+            <div className="soft-surface mt-8 rounded-[2rem] bg-ink p-7 text-mist shadow-xl sm:p-9">
+              <span className="tag-mono text-[0.6875rem] text-steel">PERGUNTA MENSAL</span>
+              <p className="headline mt-3 text-[1.375rem] leading-snug text-mist sm:text-[1.625rem]">
+                O que aprendemos este mês e como isso altera nossas próximas decisões?
               </p>
-            ))}
+            </div>
+
+            <div className="mt-9 space-y-3 border-l-2 border-steel/40 pl-4 sm:pl-6">
+              <p className="text-base leading-[1.8] text-ink/70 sm:text-lg">
+                Você não recebe apenas números.
+              </p>
+              <p className="text-base font-bold leading-[1.8] text-ink sm:text-lg">
+                Recebe contexto para decidir o próximo movimento.
+              </p>
+            </div>
+
+            <div className="mt-8 rounded-xl bg-ink/5 p-4 text-center sm:p-5">
+              <p className="text-xs font-semibold uppercase tracking-wider text-ink/70 sm:text-sm">
+                Decisão → Execução → Resultado → Aprendizado → Nova decisão.
+              </p>
+            </div>
           </div>
-        </div>
-        <div className="lg:col-span-6 lg:col-start-7 lg:pt-6">
-          <p className="max-w-[46ch] text-base leading-[1.8] text-ink/70 sm:text-[1.125rem]">
-            Por isso, todos os meses analisamos o que aconteceu, comparamos resultados,
-            identificamos avanços e problemas e usamos os dados para responder:
-          </p>
-          <div className="soft-surface mt-8 rounded-[2rem] bg-ink px-6 py-8 text-mist sm:px-9 sm:py-10">
-            <p className="headline max-w-[26ch] text-[1.375rem] sm:text-[1.625rem]">
-              O que aprendemos este mês e como isso altera nossas próximas decisões?
-            </p>
-          </div>
-          <div className="mt-10 space-y-4 text-base leading-[1.8] sm:text-[1.125rem]">
-            <p className="max-w-[42ch] text-ink/70">Você não recebe apenas números.</p>
-            <p className="max-w-[42ch] font-semibold text-ink">
-              Recebe contexto para decidir o próximo movimento.
-            </p>
-          </div>
-          <p className="mt-10 text-sm font-medium leading-[1.9] text-ink/55 sm:text-base">
-            Decisão → Execução → Resultado → Aprendizado → Nova decisão.
-          </p>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }

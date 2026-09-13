@@ -1,5 +1,3 @@
-import { Section, Eyebrow } from "./primitives";
-
 const QUESTIONS = [
   "O que devemos fazer?",
   "Por que devemos fazer?",
@@ -13,52 +11,67 @@ const QUESTIONS = [
 
 export function PromiseSection() {
   return (
-    <Section tone="mist">
+    <section className="relative isolate overflow-hidden bg-mist pt-20 pb-24 text-ink sm:pt-28 sm:pb-32 lg:pt-32 lg:pb-36">
+      {/* Luz ambiente suave */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-64 bg-[radial-gradient(ellipse_at_top,var(--paper),transparent_70%)]"
       />
-      <div className="relative grid gap-14 lg:grid-cols-12 lg:gap-x-16">
-        <div className="lg:col-span-6">
-          <Eyebrow>A promessa</Eyebrow>
-          <h2 className="headline mt-5 max-w-[20ch] text-[2rem] sm:text-[2.5rem] lg:text-[3.25rem]">
-            Você continua liderando a empresa. E passa a liderar o marketing com{" "}
-            <span className="font-normal text-ink/50">mais clareza.</span>
-          </h2>
-          <div className="mt-9 space-y-5 text-base leading-[1.8] text-ink/70 sm:text-[1.125rem]">
-            <p className="max-w-[44ch]">
-              Você não precisa dominar cada ferramenta para liderar bem o marketing da sua
-              empresa.
-            </p>
-            <p className="max-w-[44ch]">
-              Precisa entender o que está acontecendo, saber quais perguntas fazer e ter
-              informações melhores antes de decidir.
-            </p>
-          </div>
-        </div>
 
-        <div className="lg:col-span-6 lg:col-start-7">
-          <div className="glass-surface-light soft-surface rounded-[2rem] px-6 py-8 sm:px-9 sm:py-10">
-            <ul className="space-y-4">
-              {QUESTIONS.map((question) => (
-                <li
-                  key={question}
-                  className="text-[1.0625rem] font-medium leading-snug text-ink/75 sm:text-[1.1875rem]"
-                >
-                  {question}
-                </li>
-              ))}
-            </ul>
+      <div className="relative mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-12">
+        <div className="grid gap-14 lg:grid-cols-12 lg:gap-x-16">
+          {/* Coluna Esquerda: Headline e Posicionamento */}
+          <div className="lg:col-span-6">
+            <h2 className="headline text-[2.125rem] leading-[1.1] text-ink sm:text-[2.75rem] lg:text-[3.25rem]">
+              Você continua liderando a empresa. E passa a liderar o marketing com{" "}
+              <span className="font-normal text-ink/50">mais clareza.</span>
+            </h2>
+
+            <div className="mt-8 space-y-5 border-l-2 border-steel/30 pl-4 sm:mt-10 sm:pl-6">
+              <p className="text-base leading-[1.8] text-ink/85 sm:text-lg">
+                Você não precisa dominar cada ferramenta para liderar bem o marketing da sua
+                empresa.
+              </p>
+              <p className="text-base leading-[1.8] text-ink/75 sm:text-lg">
+                Precisa entender o que está acontecendo, saber quais perguntas fazer e ter
+                informações melhores antes de decidir.
+              </p>
+            </div>
           </div>
-          <div className="mt-10 max-w-[30ch]">
-            <p className="text-sm font-medium text-ink/55">No fim, todas levam a uma pergunta:</p>
-            <p className="headline mt-4 text-[1.625rem] sm:text-[2rem]">
-              Qual é a melhor decisão agora?
-            </p>
-            <p className="mt-5 text-[1.0625rem] font-semibold text-ink">É nisso que eu ajudo.</p>
+
+          {/* Coluna Direita: As 8 Perguntas Estratégicas e a Síntese */}
+          <div className="lg:col-span-6">
+            <div className="glass-surface-light soft-surface rounded-[2rem] p-6 sm:p-9">
+              <ul className="grid gap-3 sm:grid-cols-2 sm:gap-4">
+                {QUESTIONS.map((question, index) => (
+                  <li
+                    key={question}
+                    className="flex items-start gap-2.5 text-[0.9375rem] font-medium leading-snug text-ink/80 sm:text-base"
+                  >
+                    <span className="tag-mono mt-0.5 text-[0.6875rem] text-ink/40">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <span>{question}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* A Pergunta Central */}
+            <div className="mt-10 border-t border-ink/10 pt-8 sm:mt-12 sm:pt-10">
+              <p className="text-sm font-semibold uppercase tracking-wider text-ink/55">
+                No fim, todas levam a uma pergunta:
+              </p>
+              <p className="headline mt-3 text-[1.625rem] leading-tight text-ink sm:text-[2.125rem]">
+                Qual é a melhor decisão agora?
+              </p>
+              <p className="mt-4 text-base font-semibold text-ink sm:text-lg">
+                É nisso que eu ajudo.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }
