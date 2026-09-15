@@ -1,3 +1,5 @@
+import { ArrowDownRight } from "lucide-react";
+
 const PAIRS = [
   { lead: "Mais anúncios", rest: "não resolvem uma oferta que ninguém entende." },
   { lead: "Mais leads", rest: "não resolvem um comercial que não acompanha." },
@@ -53,6 +55,19 @@ export function ReframeSection() {
               <span className="font-normal text-ink/55">mais precisa funcionar agora.</span>
             </p>
           </div>
+        </div>
+
+        {/* Botão de CTA adicionado abaixo do último texto */}
+        <div className="mt-10 sm:mt-14">
+          <a
+            href="#diagnostico"
+            className="group luminous-button inline-flex min-h-[58px] w-full items-center justify-between gap-5 rounded-2xl border border-ink/15 bg-ink px-6 py-4 text-left text-[0.9375rem] font-semibold text-mist transition-all duration-300 active:scale-[0.98] hover:bg-deep hover:shadow-[0_10px_35px_rgba(0,15,37,0.25)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-deep sm:w-auto sm:min-w-[410px] sm:px-8 sm:text-base"
+          >
+            <span className="leading-snug">Quero tomar decisões melhores no marketing</span>
+            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-mist/10 text-mist transition-all duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:bg-mist group-hover:text-ink">
+              <ArrowDownRight aria-hidden="true" className="h-4 w-4" strokeWidth={2.2} />
+            </span>
+          </a>
         </div>
       </div>
     </section>

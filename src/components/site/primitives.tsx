@@ -59,7 +59,7 @@ export function CtaButton({
     <a
       href="#diagnostico"
       className={cn(
-        "luminous-button inline-flex min-h-16 w-full items-center justify-between gap-4 rounded-full px-6 text-left text-[0.9375rem] font-semibold transition-[transform,background-color,box-shadow] duration-200 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-4 sm:w-auto sm:min-w-[390px] sm:text-base",
+        "luminous-button inline-flex min-h-16 w-full items-center justify-between gap-4 rounded-2xl px-6 text-left text-[0.9375rem] font-semibold transition-[transform,background-color,box-shadow] duration-200 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-4 sm:w-auto sm:min-w-[390px] sm:text-base",
         variant === "light"
           ? "border border-mist/70 bg-mist text-ink hover:bg-paper focus-visible:outline-steel"
           : "border border-ink/15 bg-ink text-mist hover:bg-deep focus-visible:outline-deep",
@@ -67,7 +67,9 @@ export function CtaButton({
       )}
     >
       {label}
-      <ArrowDownRight aria-hidden="true" className="h-5 w-5 shrink-0" strokeWidth={1.7} />
+      <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-ink/10 text-current transition-transform duration-200">
+        <ArrowDownRight aria-hidden="true" className="h-4 w-4" strokeWidth={2} />
+      </span>
     </a>
   );
 }

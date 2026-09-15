@@ -54,29 +54,28 @@ export function HeroSection() {
           <div className="lg:col-span-10 xl:col-span-9">
             {/* Headline com presença visual marcante e ritmo expressivo */}
             <h1 className="headline text-[2.125rem] leading-[1.08] text-mist sm:text-[2.875rem] md:text-[3.5rem] lg:text-[4.125rem]">
-              Você já tem problemas demais na empresa para ainda precisar decidir o marketing{" "}
-              <span className="font-normal text-steel/90">no escuro.</span>
+              Antes de investir mais em marketing, descubra o que realmente{" "}
+              <span className="font-normal text-steel/90">precisa ser prioridade.</span>
             </h1>
 
             {/* Texto de apoio com guia editorial e contraste estável */}
-            <div className="mt-7 border-l-2 border-steel/25 pl-4 sm:mt-8 sm:pl-6">
-              <p className="max-w-[44ch] text-base leading-[1.75] text-mist/85 sm:text-lg sm:leading-[1.8] lg:max-w-[52ch]">
-                Fornecedores, equipe, financeiro, clientes, operação, impostos... e ainda sobra para
-                você decidir quanto investir, onde investir e descobrir sozinho se está fazendo a
-                escolha certa.
+            <div className="mt-7 space-y-3 border-l-2 border-steel/25 pl-4 sm:mt-8 sm:pl-6">
+              <p className="max-w-[46ch] text-base leading-[1.75] text-mist/90 sm:text-lg sm:leading-[1.8] lg:max-w-[54ch]">
+                Anúncios, conteúdo, comercial, site, automação, influenciadores... quase tudo pode funcionar.
+              </p>
+              <p className="max-w-[46ch] text-base leading-[1.75] text-steel sm:text-lg sm:leading-[1.8] lg:max-w-[54ch]">
+                O problema é descobrir o que faz mais sentido para a sua empresa agora.
               </p>
             </div>
 
-            {/* CTA Principal: cantos generosamente arredondados, proporção confortável, alto contraste e acabamento luminoso */}
+            {/* CTA Principal: cantos moderadamente arredondados com alto acabamento */}
             <div className="mt-9 sm:mt-11">
               <a
-                href={WHATSAPP_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group luminous-button inline-flex min-h-[58px] w-full items-center justify-between gap-5 rounded-full border border-mist/80 bg-mist px-6 py-4 text-left text-[0.9375rem] font-semibold text-ink transition-all duration-300 active:scale-[0.98] hover:bg-paper hover:shadow-[0_0_35px_rgba(227,228,232,0.28)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-steel sm:w-auto sm:min-w-[410px] sm:px-8 sm:text-base"
+                href="#diagnostico"
+                className="group luminous-button inline-flex min-h-[58px] w-full items-center justify-between gap-5 rounded-2xl border border-mist/80 bg-mist px-6 py-4 text-left text-[0.9375rem] font-semibold text-ink transition-all duration-300 active:scale-[0.98] hover:bg-paper hover:shadow-[0_0_35px_rgba(227,228,232,0.28)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-steel sm:w-auto sm:min-w-[410px] sm:px-8 sm:text-base"
               >
                 <span className="leading-snug">Quero tomar decisões melhores no marketing</span>
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ink/10 text-ink transition-all duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:bg-ink group-hover:text-mist">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-ink/10 text-ink transition-all duration-300 group-hover:translate-x-0.5 group-hover:translate-y-0.5 group-hover:bg-ink group-hover:text-mist">
                   <ArrowDownRight aria-hidden="true" className="h-4 w-4" strokeWidth={2.2} />
                 </span>
               </a>

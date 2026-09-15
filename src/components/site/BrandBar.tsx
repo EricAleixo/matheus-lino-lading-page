@@ -13,13 +13,16 @@ export function BrandBar() {
         <p className="mt-2 text-[0.6875rem] font-medium text-steel">Estratégia de marketing</p>
       </div>
       <div className="shrink-0 pl-3">
-        <img
-          src={qmLogo.url}
-          alt="Quality Master"
-          className="h-6 w-auto opacity-90 sm:h-7"
-          width={2238}
-          height={507}
-        />
+        <div className="logo-animated-wrapper inline-flex items-center rounded-lg p-1.5 transition-all duration-300 hover:scale-105">
+          <img
+            src={qmLogo.url}
+            alt="Quality Master"
+            className="relative z-10 h-6 w-auto opacity-95 sm:h-7"
+            width={2238}
+            height={507}
+          />
+          <div aria-hidden="true" className="logo-sheen-sweep" />
+        </div>
       </div>
     </header>
   );
