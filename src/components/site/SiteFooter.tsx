@@ -12,7 +12,7 @@ export function SiteFooter() {
           <img
             src={qmLogo.url}
             alt="Quality Master"
-            className="h-5 w-auto opacity-80 transition-opacity hover:opacity-100 sm:h-6"
+            className="h-8 w-auto opacity-80 transition-opacity hover:opacity-100 sm:h-9"
             width={2238}
             height={507}
             loading="lazy"

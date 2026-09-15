@@ -25,11 +25,11 @@ export function QualityMasterSection() {
               <span className="font-normal text-steel/90">Quality Master.</span>
             </h2>
 
-            <div className="mt-10 rounded-2xl border border-steel/15 bg-deep/20 p-6 backdrop-blur-sm sm:p-8">
+            <div className="mt-10 rounded-2xl border border-steel/15 bg-deep/20 p-7 backdrop-blur-sm sm:p-9">
               <img
                 src={qmLogo.url}
                 alt="Quality Master"
-                className="h-7 w-auto opacity-90 sm:h-8"
+                className="h-11 w-auto opacity-90 sm:h-14"
                 width={2238}
                 height={507}
                 loading="lazy"

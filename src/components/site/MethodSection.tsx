@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, Search, Sliders, RefreshCw, ArrowRight, CheckCircle2 } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronLeft, ChevronRight, Search, Sliders, RefreshCw, CheckCircle2 } from "lucide-react";
 
 const STEPS = [
   {
@@ -68,81 +69,104 @@ export function MethodSection() {
         />
 
         <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
-          <div className="max-w-[32ch]">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="max-w-[32ch]"
+          >
             <span className="tag-mono text-[0.6875rem] text-steel">METODOLOGIA APLICADA</span>
             <h2 className="headline mt-3 text-[2rem] leading-[1.12] text-mist sm:text-[2.625rem] lg:text-[3.125rem]">
               Como isso funciona na prática
             </h2>
-          </div>
+          </motion.div>
 
           {/* Controles do Carrossel de Passos */}
           <div className="flex items-center gap-2">
-            <button
+            <motion.button
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.94 }}
               type="button"
               onClick={prev}
               aria-label="Passo anterior"
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-steel/25 bg-deep/40 text-mist transition-all hover:border-mist/50 hover:bg-deep/80 focus-visible:outline-2 focus-visible:outline-steel"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-steel/25 bg-deep/40 text-mist transition-all hover:border-mist/50 hover:bg-deep/80 focus-visible:outline-2 focus-visible:outline-steel cursor-pointer"
             >
               <ChevronLeft className="h-4 w-4" />
-            </button>
-            <button
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.94 }}
               type="button"
               onClick={next}
               aria-label="Próximo passo"
-              className="flex h-10 w-10 items-center justify-center rounded-xl border border-steel/25 bg-deep/40 text-mist transition-all hover:border-mist/50 hover:bg-deep/80 focus-visible:outline-2 focus-visible:outline-steel"
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-steel/25 bg-deep/40 text-mist transition-all hover:border-mist/50 hover:bg-deep/80 focus-visible:outline-2 focus-visible:outline-steel cursor-pointer"
             >
               <ChevronRight className="h-4 w-4" />
-            </button>
+            </motion.button>
           </div>
         </div>
 
-        {/* Carrossel: Card Principal do Passo Ativo */}
+        {/* Carrossel: Card Principal do Passo Ativo com AnimatePresence */}
         <div className="mt-10 sm:mt-14">
-          <div className="glass-panel-accent relative overflow-hidden rounded-[2.5rem] p-7 shadow-2xl sm:p-10 lg:p-12">
+          <div className="glass-panel-accent relative min-h-[360px] overflow-hidden rounded-[2.5rem] p-7 shadow-2xl sm:min-h-[380px] sm:p-10 lg:p-12">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute -top-16 -right-16 h-60 w-60 rounded-full bg-steel/20 blur-3xl"
             />
 
-            <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
-              <div className="lg:col-span-7">
-                <div className="flex items-center gap-3">
-                  <span className="tag-mono flex h-8 items-center rounded-lg border border-mist/30 bg-mist/10 px-3 text-[0.6875rem] font-bold text-mist">
-                    PASSO {STEPS[activeStep].step}
-                  </span>
-                  <span className="tag-mono text-[0.6875rem] text-steel">
-                    {STEPS[activeStep].phase}
-                  </span>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeStep}
+                initial={{ opacity: 0, x: 25 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -25 }}
+                transition={{ duration: 0.4, ease: "easeInOut" }}
+                className="grid gap-8 lg:grid-cols-12 lg:items-center"
+              >
+                <div className="lg:col-span-7">
+                  <div className="flex items-center gap-3">
+                    <span className="tag-mono flex h-8 items-center rounded-lg border border-mist/30 bg-mist/10 px-3 text-[0.6875rem] font-bold text-mist">
+                      PASSO {STEPS[activeStep].step}
+                    </span>
+                    <span className="tag-mono text-[0.6875rem] text-steel">
+                      {STEPS[activeStep].phase}
+                    </span>
+                  </div>
+
+                  <h3 className="headline mt-4 text-[1.875rem] text-mist sm:text-[2.25rem] lg:text-[2.5rem]">
+                    {STEPS[activeStep].title}
+                  </h3>
+
+                  <p className="mt-4 text-base leading-[1.8] text-mist/90 sm:text-lg sm:leading-[1.8]">
+                    {STEPS[activeStep].text}
+                  </p>
+
+                  <div className="mt-6 space-y-2.5 pt-4 border-t border-steel/20">
+                    {STEPS[activeStep].deliverables.map((item) => (
+                      <div key={item} className="flex items-center gap-2.5 text-sm text-steel sm:text-[0.9375rem]">
+                        <CheckCircle2 className="h-4 w-4 shrink-0 text-mist/70" />
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
-                <h3 className="headline mt-4 text-[1.875rem] text-mist sm:text-[2.25rem] lg:text-[2.5rem]">
-                  {STEPS[activeStep].title}
-                </h3>
-
-                <p className="mt-4 text-base leading-[1.8] text-mist/90 sm:text-lg sm:leading-[1.8]">
-                  {STEPS[activeStep].text}
-                </p>
-
-                <div className="mt-6 space-y-2.5 pt-4 border-t border-steel/20">
-                  {STEPS[activeStep].deliverables.map((item) => (
-                    <div key={item} className="flex items-center gap-2.5 text-sm text-steel sm:text-[0.9375rem]">
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-mist/70" />
-                      <span>{item}</span>
-                    </div>
-                  ))}
+                <div className="flex items-center justify-center lg:col-span-5">
+                  <motion.div
+                    animate={{ scale: [1, 1.03, 1] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="relative flex h-48 w-48 items-center justify-center rounded-full border border-steel/20 bg-deep/60 shadow-[0_0_50px_rgba(0,15,37,0.8)] backdrop-blur-md sm:h-56 sm:w-56"
+                  >
+                    <div
+                      aria-hidden="true"
+                      className="absolute inset-0 rounded-full border border-dashed border-steel/30 animate-[ring-pulse_6s_ease-in-out_infinite]"
+                    />
+                    <CurrentIcon className="h-16 w-16 text-mist transition-transform duration-300 sm:h-20 sm:w-20" strokeWidth={1.5} />
+                  </motion.div>
                 </div>
-              </div>
-
-              <div className="flex items-center justify-center lg:col-span-5">
-                <div className="relative flex h-48 w-48 items-center justify-center rounded-full border border-steel/20 bg-deep/60 shadow-[0_0_50px_rgba(0,15,37,0.8)] backdrop-blur-md sm:h-56 sm:w-56">
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 rounded-full border border-dashed border-steel/30 animate-[ring-pulse_6s_ease-in-out_infinite]"
-                  />
-                  <CurrentIcon className="h-16 w-16 text-mist transition-transform duration-300 sm:h-20 sm:w-20" strokeWidth={1.5} />
-                </div>
-              </div>
-            </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
 
           {/* Abas / Indicadores Selecionáveis de Passo */}
@@ -150,11 +174,13 @@ export function MethodSection() {
             {STEPS.map((item, idx) => {
               const isActive = idx === activeStep;
               return (
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   key={item.title}
                   type="button"
                   onClick={() => setActiveStep(idx)}
-                  className={`glass-panel-dark rounded-2xl p-4 text-left transition-all duration-300 focus-visible:outline-2 focus-visible:outline-steel sm:p-5 ${
+                  className={`glass-panel-dark cursor-pointer rounded-2xl p-4 text-left transition-all duration-300 focus-visible:outline-2 focus-visible:outline-steel sm:p-5 ${
                     isActive
                       ? "border-mist/60 bg-deep/75 shadow-[0_0_25px_rgba(227,228,232,0.15)]"
                       : "opacity-60 hover:opacity-100 hover:bg-deep/40"
@@ -166,14 +192,20 @@ export function MethodSection() {
                   <p className="mt-1 text-sm font-semibold text-mist sm:text-base">
                     {item.title}
                   </p>
-                </button>
+                </motion.button>
               );
             })}
           </div>
         </div>
 
         {/* Representação Visual Gráfica: O Ciclo de Decisão Estratégica */}
-        <div className="mt-16 sm:mt-20">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="mt-16 sm:mt-20"
+        >
           <div className="relative overflow-hidden rounded-[2.5rem] border border-steel/20 bg-gradient-to-b from-deep/40 via-ink/60 to-deep/40 p-8 text-center backdrop-blur-md sm:p-12">
             <div
               aria-hidden="true"
@@ -191,7 +223,10 @@ export function MethodSection() {
             {/* Diagrama Visual em 3 Nós Conectados */}
             <div className="relative mt-10 grid gap-6 sm:grid-cols-3 sm:gap-4 lg:gap-8">
               {/* Nó 1: Entender */}
-              <div className="glass-panel-dark group flex flex-col items-center rounded-2xl p-6 transition-all duration-300 hover:border-steel/50 hover:bg-deep/60">
+              <motion.div
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="glass-panel-dark group flex flex-col items-center rounded-2xl p-6 transition-all duration-300 hover:border-steel/50 hover:bg-deep/60 cursor-pointer"
+              >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-mist/10 text-mist">
                   <Search className="h-6 w-6" strokeWidth={1.8} />
                 </div>
@@ -200,10 +235,13 @@ export function MethodSection() {
                 <p className="mt-2 text-xs leading-relaxed text-steel/80">
                   Gargalos, dados e contexto real do negócio
                 </p>
-              </div>
+              </motion.div>
 
               {/* Nó 2: Decidir */}
-              <div className="glass-panel-accent group flex flex-col items-center rounded-2xl p-6 transition-all duration-300 hover:border-mist/60">
+              <motion.div
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="glass-panel-accent group flex flex-col items-center rounded-2xl p-6 transition-all duration-300 hover:border-mist/60 cursor-pointer"
+              >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-mist/20 text-mist">
                   <Sliders className="h-6 w-6" strokeWidth={1.8} />
                 </div>
@@ -212,10 +250,13 @@ export function MethodSection() {
                 <p className="mt-2 text-xs leading-relaxed text-mist/80">
                   O que vem primeiro, quanto investir e como agir
                 </p>
-              </div>
+              </motion.div>
 
               {/* Nó 3: Aprender */}
-              <div className="glass-panel-dark group flex flex-col items-center rounded-2xl p-6 transition-all duration-300 hover:border-steel/50 hover:bg-deep/60">
+              <motion.div
+                whileHover={{ y: -5, scale: 1.02 }}
+                className="glass-panel-dark group flex flex-col items-center rounded-2xl p-6 transition-all duration-300 hover:border-steel/50 hover:bg-deep/60 cursor-pointer"
+              >
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-mist/10 text-mist">
                   <RefreshCw className="h-6 w-6" strokeWidth={1.8} />
                 </div>
@@ -224,7 +265,7 @@ export function MethodSection() {
                 <p className="mt-2 text-xs leading-relaxed text-steel/80">
                   Métricas convertidas em inteligência para o próximo passo
                 </p>
-              </div>
+              </motion.div>
             </div>
 
             {/* Síntese Linear do Fluxo */}
@@ -238,7 +279,7 @@ export function MethodSection() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

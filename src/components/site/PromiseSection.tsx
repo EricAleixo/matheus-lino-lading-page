@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const QUESTIONS = [
   "O que devemos fazer?",
   "Por que devemos fazer?",
@@ -21,7 +23,13 @@ export function PromiseSection() {
       <div className="relative mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-12">
         <div className="grid gap-14 lg:grid-cols-12 lg:gap-x-16">
           {/* Coluna Esquerda: Headline e Posicionamento */}
-          <div className="lg:col-span-6">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:col-span-6"
+          >
             <h2 className="headline text-[2.125rem] leading-[1.1] text-ink sm:text-[2.75rem] lg:text-[3.25rem]">
               Você continua liderando a empresa. E passa a liderar o marketing com{" "}
               <span className="font-normal text-ink/50">mais clareza.</span>
@@ -37,28 +45,44 @@ export function PromiseSection() {
                 informações melhores antes de decidir.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Coluna Direita: As 8 Perguntas Estratégicas e a Síntese */}
-          <div className="lg:col-span-6">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="lg:col-span-6"
+          >
             <div className="glass-surface-light soft-surface rounded-[2rem] p-6 sm:p-9">
               <ul className="grid gap-3 sm:grid-cols-2 sm:gap-4">
                 {QUESTIONS.map((question, index) => (
-                  <li
+                  <motion.li
                     key={question}
+                    initial={{ opacity: 0, y: 15 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
+                    transition={{ duration: 0.4, delay: index * 0.06, ease: "easeOut" }}
                     className="flex items-start gap-2.5 text-[0.9375rem] font-medium leading-snug text-ink/80 sm:text-base"
                   >
                     <span className="tag-mono mt-0.5 text-[0.6875rem] text-ink/40">
                       {String(index + 1).padStart(2, "0")}
                     </span>
                     <span>{question}</span>
-                  </li>
+                  </motion.li>
                 ))}
               </ul>
             </div>
 
             {/* A Pergunta Central */}
-            <div className="mt-10 border-t border-ink/10 pt-8 sm:mt-12 sm:pt-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+              className="mt-10 border-t border-ink/10 pt-8 sm:mt-12 sm:pt-10"
+            >
               <p className="text-sm font-semibold uppercase tracking-wider text-ink/55">
                 No fim, todas levam a uma pergunta:
               </p>
@@ -68,8 +92,8 @@ export function PromiseSection() {
               <p className="mt-4 text-base font-semibold text-ink sm:text-lg">
                 É nisso que eu ajudo.
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

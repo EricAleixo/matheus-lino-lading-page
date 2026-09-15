@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Target, Sparkles, Globe } from "lucide-react";
 
 const ATTEMPTS = [
@@ -23,13 +24,23 @@ const ATTEMPTS = [
     echo: "E pode funcionar também.",
     detail: "Atualiza a vitrine digital da empresa, mas não resolve se o gargalo estiver no produto ou no modelo de vendas.",
   },
-];
+] as const;
 
 export function DarkShotsSection() {
   const [activeIndex, setActiveIndex] = useState(0);
 
-  const prev = () => setActiveIndex((curr) => (curr === 0 ? ATTEMPTS.length - 1 : curr - 1));
-  const next = () => setActiveIndex((curr) => (curr === ATTEMPTS.length - 1 ? 0 : curr + 1));
+  const prev = () =>
+    setActiveIndex((curr) =>
+      curr === 0 ? ATTEMPTS.length - 1 : curr - 1
+    );
+
+  const next = () =>
+    setActiveIndex((curr) =>
+      curr === ATTEMPTS.length - 1 ? 0 : curr + 1
+    );
+
+  // Fallback para ATTEMPTS[0] garante que o TypeScript nunca veja `undefined`
+  const activeAttempt = ATTEMPTS[activeIndex] ?? ATTEMPTS[0];
 
   return (
     <section className="relative isolate overflow-hidden pt-12 pb-24 text-mist sm:pt-16 sm:pb-32 lg:pt-20 lg:pb-36">
@@ -46,7 +57,13 @@ export function DarkShotsSection() {
       <div className="relative mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-12">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-16 lg:items-start">
           {/* Coluna Esquerda: Headline e Nova Narrativa Editorial */}
-          <div className="lg:col-span-6">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:col-span-6"
+          >
             <h2 className="headline text-[2rem] leading-[1.1] text-mist sm:text-[2.625rem] lg:text-[3.125rem]">
               E quando ninguém está olhando o todo, é fácil começar a dar{" "}
               <span className="font-normal text-steel/90">tiros no escuro.</span>
@@ -73,63 +90,82 @@ export function DarkShotsSection() {
                 da empresa de entender, decidir e executar melhor amanhã.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Coluna Direita: Carrossel Interativo das 3 Ações */}
-          <div className="lg:col-span-6">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="lg:col-span-6"
+          >
             <div className="flex items-center justify-between pb-3">
               <span className="tag-mono text-[0.6875rem] text-steel">
                 AÇÕES ISOLADAS VS. VISÃO DO TODO
               </span>
               <div className="flex items-center gap-2">
-                <button
+                <motion.button
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.94 }}
                   type="button"
                   onClick={prev}
                   aria-label="Ação anterior"
-                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-steel/20 bg-deep/40 text-mist transition-colors hover:border-mist/50 hover:bg-deep/80 focus-visible:outline-2 focus-visible:outline-steel"
+                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-steel/20 bg-deep/40 text-mist transition-colors hover:border-mist/50 hover:bg-deep/80 focus-visible:outline-2 focus-visible:outline-steel cursor-pointer"
                 >
                   <ChevronLeft className="h-4 w-4" />
-                </button>
-                <button
+                </motion.button>
+                <motion.button
+                  whileHover={{ scale: 1.08 }}
+                  whileTap={{ scale: 0.94 }}
                   type="button"
                   onClick={next}
                   aria-label="Próxima ação"
-                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-steel/20 bg-deep/40 text-mist transition-colors hover:border-mist/50 hover:bg-deep/80 focus-visible:outline-2 focus-visible:outline-steel"
+                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-steel/20 bg-deep/40 text-mist transition-colors hover:border-mist/50 hover:bg-deep/80 focus-visible:outline-2 focus-visible:outline-steel cursor-pointer"
                 >
                   <ChevronRight className="h-4 w-4" />
-                </button>
+                </motion.button>
               </div>
             </div>
 
-            {/* Card Principal em Destaque do Carrossel */}
-            <div className="glass-panel-accent relative mt-2 overflow-hidden rounded-[2rem] p-7 transition-all duration-300 sm:p-9">
+            {/* Card Principal em Destaque do Carrossel com AnimatePresence */}
+            <div className="glass-panel-accent relative mt-2 min-h-[260px] overflow-hidden rounded-[2rem] p-7 sm:min-h-[280px] sm:p-9">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-steel/15 blur-2xl"
               />
 
-              <div className="relative">
-                <div className="flex items-center justify-between">
-                  <span className="tag-mono text-[0.6875rem] font-bold text-mist">
-                    {ATTEMPTS[activeIndex].tag}
-                  </span>
-                  <span className="text-xs font-semibold text-steel/60">
-                    0{activeIndex + 1} / 0{ATTEMPTS.length}
-                  </span>
-                </div>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeIndex}
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -20 }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  className="relative"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="tag-mono text-[0.6875rem] font-bold text-mist">
+                      {activeAttempt.tag}
+                    </span>
+                    <span className="text-xs font-semibold text-steel/60">
+                      0{activeIndex + 1} / 0{ATTEMPTS.length}
+                    </span>
+                  </div>
 
-                <div className="mt-6">
-                  <h3 className="headline text-[1.5rem] leading-snug text-mist sm:text-[1.875rem]">
-                    {ATTEMPTS[activeIndex].action}
-                  </h3>
-                  <p className="mt-2 text-base font-semibold text-steel sm:text-lg">
-                    {ATTEMPTS[activeIndex].echo}
-                  </p>
-                  <p className="mt-5 text-sm leading-relaxed text-mist/75 sm:text-base">
-                    {ATTEMPTS[activeIndex].detail}
-                  </p>
-                </div>
-              </div>
+                  <div className="mt-6">
+                    <h3 className="headline text-[1.5rem] leading-snug text-mist sm:text-[1.875rem]">
+                      {activeAttempt.action}
+                    </h3>
+                    <p className="mt-2 text-base font-semibold text-steel sm:text-lg">
+                      {activeAttempt.echo}
+                    </p>
+                    <p className="mt-5 text-sm leading-relaxed text-mist/75 sm:text-base">
+                      {activeAttempt.detail}
+                    </p>
+                  </div>
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             {/* Indicadores do Carrossel e Mini Cards Alternáveis */}
@@ -137,25 +173,26 @@ export function DarkShotsSection() {
               {ATTEMPTS.map((item, idx) => {
                 const isActive = idx === activeIndex;
                 return (
-                  <button
+                  <motion.button
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.97 }}
                     key={item.tag}
                     type="button"
                     onClick={() => setActiveIndex(idx)}
-                    className={`glass-panel-dark rounded-2xl p-3.5 text-left transition-all duration-300 focus-visible:outline-2 focus-visible:outline-steel ${
-                      isActive
-                        ? "border-mist/60 bg-deep/70 shadow-[0_0_20px_rgba(227,228,232,0.15)]"
-                        : "opacity-60 hover:opacity-100 hover:bg-deep/40"
-                    }`}
+                    className={`glass-panel-dark cursor-pointer rounded-2xl p-3.5 text-left transition-all duration-300 focus-visible:outline-2 focus-visible:outline-steel ${isActive
+                      ? "border-mist/60 bg-deep/70 shadow-[0_0_20px_rgba(227,228,232,0.15)]"
+                      : "opacity-60 hover:opacity-100 hover:bg-deep/40"
+                      }`}
                   >
                     <span className="tag-mono block text-[0.625rem] text-steel">0{idx + 1}</span>
                     <p className="mt-1 line-clamp-1 text-xs font-semibold text-mist sm:text-[0.8125rem]">
                       {item.action}
                     </p>
-                  </button>
+                  </motion.button>
                 );
               })}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

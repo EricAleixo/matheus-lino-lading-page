@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 export function RoleSection() {
   return (
     <section className="veil-atmosphere relative isolate overflow-hidden pt-20 pb-24 text-mist sm:pt-28 sm:pb-32 lg:pt-32 lg:pb-36">
@@ -14,7 +16,13 @@ export function RoleSection() {
       <div className="relative mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-12">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-16 lg:items-start">
           {/* Coluna Esquerda: Headline */}
-          <div className="lg:col-span-6">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="lg:col-span-6"
+          >
             <h2 className="headline text-[2.125rem] leading-[1.08] text-mist sm:text-[2.875rem] lg:text-[3.5rem]">
               Você continua decidindo. Só não precisa decidir{" "}
               <span className="font-normal text-steel/90">no escuro.</span>
@@ -29,11 +37,20 @@ export function RoleSection() {
                 tomar decisões melhores.
               </p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Coluna Direita: Cartão Estratégico Translúcido */}
-          <div className="lg:col-span-6 lg:pt-2">
-            <div className="glass-panel-dark rounded-[2rem] p-7 sm:p-9">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="lg:col-span-6 lg:pt-2"
+          >
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="glass-panel-dark rounded-[2rem] p-7 transition-all duration-300 hover:border-steel/40 sm:p-9"
+            >
               <p className="text-base leading-[1.8] text-mist/90 sm:text-[1.0625rem] sm:leading-[1.85]">
                 Atuo como um braço estratégico ao seu lado, analisando negócio, mercado, dados e
                 resultados para identificar gargalos e ajudar a definir onde vale concentrar
@@ -44,8 +61,8 @@ export function RoleSection() {
                 À medida que identificamos novos gargalos e oportunidades, adicionamos capacidade de
                 execução onde ela realmente pode gerar impacto.
               </p>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </div>
     </section>

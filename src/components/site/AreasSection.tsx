@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const AREAS = [
   {
     title: "Posicionamento e marca",
@@ -29,18 +31,29 @@ export function AreasSection() {
   return (
     <section className="paper-atmosphere relative isolate overflow-hidden pt-20 pb-24 text-ink sm:pt-28 sm:pb-32 lg:pt-32 lg:pb-36">
       <div className="relative mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-12">
-        <div className="max-w-[32ch]">
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="max-w-[32ch]"
+        >
           <h2 className="headline text-[2.125rem] leading-[1.08] text-ink sm:text-[2.75rem] lg:text-[3.25rem]">
             Dependendo do problema, a resposta pode estar em lugares diferentes.
           </h2>
-        </div>
+        </motion.div>
 
-        {/* Grade de 6 Áreas de Diagnóstico */}
+        {/* Grade de 6 Áreas de Diagnóstico com Stagger e Hover */}
         <div className="mt-12 grid gap-4 sm:mt-16 sm:grid-cols-2 sm:gap-6 lg:mt-20 lg:grid-cols-3">
           {AREAS.map((item, index) => (
-            <div
+            <motion.div
               key={item.title}
-              className="glass-surface-light soft-surface group rounded-2xl p-6 transition-all duration-300 hover:shadow-md sm:p-7"
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: index * 0.08, ease: "easeOut" }}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+              className="glass-surface-light soft-surface group rounded-2xl p-6 transition-all duration-300 hover:shadow-xl sm:p-7"
             >
               <span className="tag-mono text-[0.6875rem] text-ink/40">0{index + 1} // ÁREA</span>
               <h3 className="headline mt-3 text-[1.1875rem] text-ink sm:text-[1.3125rem]">
@@ -49,17 +62,23 @@ export function AreasSection() {
               <p className="mt-3 text-base leading-[1.75] text-ink/70 sm:text-[1.0625rem]">
                 {item.description}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Fechamento */}
-        <div className="mt-14 border-t border-ink/10 pt-10 sm:mt-20 sm:pt-14">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
+          className="mt-14 border-t border-ink/10 pt-10 sm:mt-20 sm:pt-14"
+        >
           <p className="headline max-w-[28ch] text-[1.5rem] leading-snug text-ink sm:text-[2rem]">
             A solução vem depois do diagnóstico.{" "}
             <span className="font-normal text-ink/50">Não o contrário.</span>
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
