@@ -15,9 +15,15 @@ export function BrandBar() {
       </div>
       <div className="shrink-0 pl-3">
         <motion.div
-          whileHover={{ scale: 1.06 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, y: [0, -4, 0] }}
+          transition={{
+            opacity: { duration: 0.7, delay: 0.2, ease: "easeOut" },
+            y: { duration: 3, delay: 0.9, repeat: Infinity, ease: "easeInOut" },
+          }}
+          whileHover={{ scale: 1.06, y: 0 }}
           whileTap={{ scale: 0.98 }}
-          className="logo-animated-wrapper inline-flex items-center rounded-lg p-2 transition-all duration-300 cursor-pointer"
+          className="logo-animated-wrapper inline-flex items-center rounded-lg p-2 transition-all duration-300 cursor-pointer will-change-transform"
         >
           <img
             src={qmLogo.url}
@@ -26,7 +32,6 @@ export function BrandBar() {
             width={2238}
             height={507}
           />
-          <div aria-hidden="true" className="logo-sheen-sweep" />
         </motion.div>
       </div>
     </motion.header>

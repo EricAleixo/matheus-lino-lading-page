@@ -1,5 +1,30 @@
 import { motion } from "framer-motion";
-import { User } from "lucide-react";
+
+/**
+ * Silhueta de personagem em SVG (cabeça + busto), preenchida com
+ * currentColor/Tailwind. Diferente de um ícone de linha (como o "User"
+ * do lucide-react), essa forma sólida mantém presença visual mesmo
+ * em tamanhos bem grandes — é o que faz o personagem "ocupar" o centro
+ * da seção em vez de parecer um ícone pequeno esticado.
+ */
+function PersonSilhouette({ className = "" }) {
+  return (
+    <svg
+      viewBox="0 0 200 220"
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      {/* Cabeça */}
+      <circle cx="100" cy="58" r="52" className="fill-mist" />
+      {/* Busto / ombros */}
+      <path
+        d="M6 220 C6 146 46 112 100 112 C154 112 194 146 194 220 Z"
+        className="fill-mist/90"
+      />
+    </svg>
+  );
+}
 
 const QUESTIONS = [
   "Aumento a verba dos anúncios?",
@@ -12,20 +37,57 @@ const QUESTIONS = [
 
 const PIVOTAL_QUESTION = "Qual dessas perguntas deveria vir primeiro?";
 
-export function DailySection() {
-  const leftQuestions = QUESTIONS.slice(0, 3);
-  const rightQuestions = QUESTIONS.slice(3, 6);
+/**
+ * Posição de cada pergunta ao redor do personagem central.
+ * top/bottom/left/right são percentuais relativos ao container orbital
+ * (ver abaixo), então funcionam em qualquer largura de tela.
+ *
+ * center: true → a pergunta fica centralizada horizontalmente (usa
+ * left: "50%" + um deslocamento de -50% via x do framer-motion).
+ *
+ * fromX/fromY: deslocamento (em px) de onde a pergunta "nasce" na
+ * animação de entrada — sempre um valor que aponta para o personagem,
+ * dando a sensação de que ela está saindo dele até se acomodar perto.
+ *
+ * Ajuste aqui se quiser abrir/fechar o "raio" da órbita, aproximar
+ * ainda mais as perguntas, ou mudar onde cada uma aparece.
+ */
+// Cada posição sempre declara as mesmas propriedades (com undefined/false/0
+// nas que não se aplicam). Isso mantém o formato do objeto idêntico em
+// todos os itens, então o TypeScript infere um único tipo consistente
+// para o array inteiro — sem erros de "propriedade não existe".
+const ORBIT_POSITIONS = [
+  { top: "16%", bottom: undefined, left: "6%", right: undefined, center: false, fromX: 90, fromY: 90 }, // 01 - superior esquerda, mais perto do personagem
+  { top: "6%", bottom: undefined, left: "50%", right: undefined, center: true, fromX: 0, fromY: 100 }, // 02 - topo, centralizada, mais perto
+  { top: "16%", bottom: undefined, left: undefined, right: "6%", center: false, fromX: -90, fromY: 90 }, // 03 - superior direita, mais perto do personagem
+  { top: undefined, bottom: "24%", left: "2%", right: undefined, center: false, fromX: 90, fromY: -90 }, // 04 - inferior esquerda, perto do personagem
+  { top: undefined, bottom: "2%", left: "50%", right: undefined, center: true, fromX: 0, fromY: -100 }, // 05 - base, centralizada
+  { top: undefined, bottom: "12%", left: undefined, right: "-6%", center: false, fromX: -90, fromY: -90 }, // 06 - inferior direita, mais afastada do personagem
+];
 
+// Mesmo formato acima, usado como fallback caso o índice não exista —
+// garante que "pos" nunca perca as propriedades no acesso abaixo.
+const EMPTY_ORBIT_POSITION = {
+  top: undefined,
+  bottom: undefined,
+  left: undefined,
+  right: undefined,
+  center: false,
+  fromX: 0,
+  fromY: 0,
+};
+
+export function DailySection() {
   return (
     <section className="relative isolate overflow-hidden pt-12 pb-24 text-mist sm:pt-16 sm:pb-32 lg:pt-20 lg:pb-36">
-      {/* Luzes difusas de ambiente */}
+      {/* Luzes difusas de ambiente — gradiente radial em vez de blur(), custo bem menor */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-10 left-1/4 h-[30rem] w-[30rem] rounded-full bg-steel/[0.06] blur-[140px]"
+        className="pointer-events-none absolute top-10 left-1/4 h-[30rem] w-[30rem] rounded-full bg-[radial-gradient(circle,theme(colors.steel/8%),transparent_70%)]"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute bottom-10 right-10 h-80 w-80 rounded-full bg-deep/40 blur-[110px]"
+        className="pointer-events-none absolute bottom-10 right-10 h-80 w-80 rounded-full bg-[radial-gradient(circle,theme(colors.deep/55%),transparent_70%)]"
       />
 
       <div className="relative mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-12">
@@ -48,128 +110,117 @@ export function DailySection() {
           </h2>
         </motion.div>
 
-        {/* Layout com Ícone de Pessoa no Centro e Perguntas em Volta */}
-        <div className="mt-14 sm:mt-18 lg:mt-20">
-          <div className="grid items-center gap-6 lg:grid-cols-12 lg:gap-8">
-            {/* Coluna Esquerda: 3 Perguntas (Entrada da esquerda) */}
-            <div className="space-y-4 lg:col-span-4">
-              {leftQuestions.map((question, idx) => {
-                const questionNumber = String(idx + 1).padStart(2, "0");
-                return (
-                  <motion.div
-                    key={question}
-                    initial={{ opacity: 0, x: -30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
-                    transition={{ duration: 0.6, delay: idx * 0.12, ease: "easeOut" }}
-                    whileHover={{ scale: 1.02, x: 4 }}
-                    className="glass-panel-dark group flex items-baseline gap-4 rounded-2xl p-5 transition-all duration-300 hover:border-steel/40 hover:bg-deep/50 hover:shadow-[0_8px_30px_rgba(0,15,37,0.4)]"
-                  >
-                    <span className="tag-mono shrink-0 text-[0.6875rem] font-semibold text-steel/60 transition-colors group-hover:text-mist">
-                      {questionNumber}
-                    </span>
-                    <p className="text-[1.0625rem] font-medium leading-snug text-mist/90 sm:text-[1.125rem]">
-                      {question}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
-
-            {/* Coluna Central: Ícone de Pessoa / Decisor com anéis orbitais */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="flex flex-col items-center justify-center py-6 lg:col-span-4 lg:py-0"
-            >
-              <div className="relative flex h-40 w-40 items-center justify-center sm:h-48 sm:w-48">
-                {/* Anéis orbitais concêntricos com animação sutil */}
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-0 rounded-full border border-steel/15 animate-[ring-pulse_4s_ease-in-out_infinite]"
-                />
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-4 rounded-full border border-dashed border-steel/25"
-                />
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-8 rounded-full bg-steel/10 blur-xl"
-                />
-
-                {/* Nó Central com Ícone */}
-                <motion.div
-                  whileHover={{ scale: 1.08 }}
-                  className="relative z-10 flex h-24 w-24 flex-col items-center justify-center rounded-full border border-mist/40 bg-gradient-to-b from-deep/90 to-ink/95 shadow-[0_0_30px_rgba(141,157,179,0.25)] backdrop-blur-md cursor-pointer sm:h-28 sm:w-28"
-                >
-                  <User className="h-9 w-9 text-mist sm:h-11 sm:w-11" strokeWidth={1.75} />
-                  <span className="tag-mono mt-1 text-[0.5625rem] font-semibold tracking-widest text-steel">
-                    VOCÊ
-                  </span>
-                </motion.div>
-              </div>
-              <p className="tag-mono mt-3 text-[0.6875rem] tracking-wider text-steel/70">
-                CENTRO DAS DECISÕES
-              </p>
-            </motion.div>
-
-            {/* Coluna Direita: 3 Perguntas (Entrada da direita) */}
-            <div className="space-y-4 lg:col-span-4">
-              {rightQuestions.map((question, idx) => {
-                const questionNumber = String(idx + 4).padStart(2, "0");
-                return (
-                  <motion.div
-                    key={question}
-                    initial={{ opacity: 0, x: 30 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true, margin: "-60px" }}
-                    transition={{ duration: 0.6, delay: idx * 0.12, ease: "easeOut" }}
-                    whileHover={{ scale: 1.02, x: -4 }}
-                    className="glass-panel-dark group flex items-baseline gap-4 rounded-2xl p-5 transition-all duration-300 hover:border-steel/40 hover:bg-deep/50 hover:shadow-[0_8px_30px_rgba(0,15,37,0.4)]"
-                  >
-                    <span className="tag-mono shrink-0 text-[0.6875rem] font-semibold text-steel/60 transition-colors group-hover:text-mist">
-                      {questionNumber}
-                    </span>
-                    <p className="text-[1.0625rem] font-medium leading-snug text-mist/90 sm:text-[1.125rem]">
-                      {question}
-                    </p>
-                  </motion.div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* Destaque Principal: A 7ª Pergunta (com entrada destacada) */}
+        {/*
+          Palco orbital: o personagem fica fixo e grande no centro,
+          as 6 perguntas ficam próximas dele e, na animação de entrada,
+          nascem de dentro dele (fromX/fromY em ORBIT_POSITIONS) e se
+          afastam até seu lugar — como se fossem dúvidas saindo da cabeça
+          dele.
+        */}
+        <div className="relative mx-auto mt-16 h-[820px] w-full max-w-xl sm:mt-20 sm:h-[800px] sm:max-w-2xl lg:h-[720px] lg:max-w-4xl">
+          {/* Personagem central */}
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.96 }}
-            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
-            className="mt-10 sm:mt-14"
+            transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+            className="absolute top-1/2 left-1/2 z-20 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center will-change-transform"
           >
-            <div className="glass-panel-accent relative overflow-hidden rounded-2xl p-6 sm:p-8 lg:p-10">
+            <div className="relative flex h-72 w-72 items-center justify-center sm:h-96 sm:w-96 lg:h-[30rem] lg:w-[30rem]">
+              {/* Glow difuso atrás do personagem — gradiente radial, sem blur() */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute -top-12 -right-12 h-44 w-44 rounded-full bg-steel/20 blur-3xl"
+                className="absolute inset-0 rounded-full bg-[radial-gradient(circle,theme(colors.steel/14%),transparent_70%)]"
               />
-              <div className="relative flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
-                <div className="flex items-center gap-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-mist/15 text-[0.8125rem] font-bold text-mist">
-                    07
-                  </span>
-                  <p className="headline text-[1.25rem] text-mist sm:text-[1.5rem] lg:text-[1.75rem]">
-                    {PIVOTAL_QUESTION}
-                  </p>
-                </div>
-                <span className="tag-mono shrink-0 rounded-full border border-mist/30 bg-mist/10 px-4 py-1.5 text-[0.6875rem] text-mist">
-                  PONTO DE PARTIDA
-                </span>
-              </div>
+              {/* Anéis orbitais concêntricos com animação sutil */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-4 rounded-full border border-steel/10 animate-[ring-pulse_4s_ease-in-out_infinite]"
+              />
+              <div
+                aria-hidden="true"
+                className="absolute inset-14 rounded-full border border-dashed border-steel/15"
+              />
+
+              {/* Personagem — grande o suficiente para parecer a fonte das perguntas */}
+              <motion.div
+                whileHover={{ scale: 1.03 }}
+                className="relative z-10 h-[78%] w-[78%] cursor-pointer will-change-transform"
+              >
+                <PersonSilhouette className="h-full w-full" />
+              </motion.div>
             </div>
           </motion.div>
+
+          {/* Perguntas orbitando, surgindo do personagem */}
+          {QUESTIONS.map((question, idx) => {
+            const questionNumber = String(idx + 1).padStart(2, "0");
+            const pos = ORBIT_POSITIONS[idx] ?? EMPTY_ORBIT_POSITION;
+
+            return (
+              <div
+                key={question}
+                style={{
+                  position: "absolute",
+                  top: pos.top ?? "auto",
+                  bottom: pos.bottom ?? "auto",
+                  left: pos.left ?? "auto",
+                  right: pos.right ?? "auto",
+                  transform: pos.center ? "translateX(-50%)" : "none",
+                }}
+                className="z-10 w-[170px] sm:w-[210px] lg:w-[250px]"
+              >
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.4, x: pos.fromX, y: pos.fromY }}
+                  whileInView={{ opacity: 1, scale: 1, x: 0, y: 0 }}
+                  viewport={{ once: true, margin: "-40px" }}
+                  transition={{
+                    duration: 0.7,
+                    delay: 0.3 + idx * 0.15,
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="glass-panel-dark group flex flex-col gap-2 rounded-2xl p-4 transition-colors duration-300 will-change-transform hover:border-steel/40 hover:bg-deep/50 hover:shadow-[0_8px_30px_rgba(0,15,37,0.4)] sm:p-5"
+                >
+                  <span className="tag-mono text-[0.625rem] font-semibold text-steel/60 transition-colors group-hover:text-mist">
+                    {questionNumber}
+                  </span>
+                  <p className="text-[0.875rem] font-medium leading-snug text-mist/90 sm:text-[0.9375rem]">
+                    {question}
+                  </p>
+                </motion.div>
+              </div>
+            );
+          })}
         </div>
+
+        {/* Destaque Principal: A 7ª Pergunta */}
+        <motion.div
+          initial={{ opacity: 0, y: 30, scale: 0.96 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="mt-6 sm:mt-8"
+        >
+          <div className="glass-panel-accent relative overflow-hidden rounded-2xl p-6 sm:p-8 lg:p-10">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -top-12 -right-12 h-44 w-44 rounded-full bg-[radial-gradient(circle,theme(colors.steel/25%),transparent_70%)]"
+            />
+            <div className="relative flex flex-col items-center justify-between gap-4 text-center sm:flex-row sm:text-left">
+              <div className="flex items-center gap-4">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-mist/15 text-[0.8125rem] font-bold text-mist">
+                  07
+                </span>
+                <p className="headline text-[1.25rem] text-mist sm:text-[1.5rem] lg:text-[1.75rem]">
+                  {PIVOTAL_QUESTION}
+                </p>
+              </div>
+              <span className="tag-mono shrink-0 rounded-full border border-mist/30 bg-mist/10 px-4 py-1.5 text-[0.6875rem] text-mist">
+                PONTO DE PARTIDA
+              </span>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
   );
