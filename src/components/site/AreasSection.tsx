@@ -1,27 +1,34 @@
 import { motion } from "framer-motion";
+import { Heart, MessageSquare, Rocket, Target, TrendingUp, Workflow } from "lucide-react";
 
 const AREAS = [
   {
+    icon: Target,
     title: "Posicionamento e marca",
     description: "Quando o mercado não entende claramente o valor da empresa.",
   },
   {
+    icon: Rocket,
     title: "Mídia e aquisição",
     description: "Quando precisamos aumentar demanda ou alcançar novas pessoas.",
   },
   {
+    icon: MessageSquare,
     title: "Conteúdo e comunicação",
     description: "Quando a empresa precisa construir percepção, autoridade ou relacionamento.",
   },
   {
+    icon: TrendingUp,
     title: "Vendas e jornada comercial",
     description: "Quando existe interesse, mas ele não está virando negócio.",
   },
   {
+    icon: Workflow,
     title: "CRM, automação e processos",
     description: "Quando oportunidades estão sendo desperdiçadas por falta de estrutura.",
   },
   {
+    icon: Heart,
     title: "Experiência",
     description: "Quando a promessa feita pelo marketing não é sustentada nos pontos de contato.",
   },
@@ -39,7 +46,7 @@ export function AreasSection() {
           className="max-w-[32ch]"
         >
           <h2 className="headline text-[2.125rem] leading-[1.08] text-ink sm:text-[2.75rem] lg:text-[3.25rem]">
-            Dependendo do problema, a resposta pode estar em lugares diferentes.
+            Dependendo do problema, a resposta muda de lugar.
           </h2>
         </motion.div>
 
@@ -55,7 +62,12 @@ export function AreasSection() {
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
               className="glass-surface-light soft-surface group rounded-2xl p-6 transition-all duration-300 hover:shadow-xl sm:p-7"
             >
-              <span className="tag-mono text-[0.6875rem] text-ink/40">0{index + 1} // ÁREA</span>
+              <div className="flex items-center justify-between">
+                <span className="tag-mono text-[0.6875rem] text-ink/40">0{index + 1} // ÁREA</span>
+                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-ink/5 text-ink/70 ring-1 ring-ink/10 transition-colors duration-300 group-hover:bg-ink/10">
+                  <item.icon aria-hidden="true" className="h-4.5 w-4.5" strokeWidth={1.75} />
+                </span>
+              </div>
               <h3 className="headline mt-3 text-[1.1875rem] text-ink sm:text-[1.3125rem]">
                 {item.title}
               </h3>

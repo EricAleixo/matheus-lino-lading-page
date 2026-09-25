@@ -1,8 +1,25 @@
 import { motion } from "framer-motion";
 
+import reuniaoGeral from "@/assets/reuniao-geral.webp";
+
 export function RoleSection() {
   return (
     <section className="veil-atmosphere relative isolate overflow-hidden pt-20 pb-24 text-mist sm:pt-28 sm:pb-32 lg:pt-32 lg:pb-36">
+      {/* Grande imagem de uma reunião real, cobrindo todo o fundo */}
+      <img
+        src={reuniaoGeral}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover"
+      />
+      {/* Escurecimento para manter o fundo escuro e o texto legível */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-ink/80" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-ink via-transparent to-ink"
+      />
+
       {/* Luz ambiente azul profundo */}
       <div
         aria-hidden="true"

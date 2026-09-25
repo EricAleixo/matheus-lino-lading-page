@@ -1,20 +1,36 @@
 import { motion } from "framer-motion";
-import { ArrowDownRight } from "lucide-react";
+import { ArrowDownRight, FileText, Megaphone, Radio, Users } from "lucide-react";
 
 const PAIRS = [
-  { lead: "Mais anúncios", rest: "não resolvem uma oferta que ninguém entende." },
-  { lead: "Mais leads", rest: "não resolvem um comercial que não acompanha." },
-  { lead: "Mais conteúdo", rest: "não resolve uma marca que não sabe o que quer dizer." },
-  { lead: "Mais alcance", rest: "não resolve uma experiência ruim depois do primeiro contato." },
+  {
+    icon: Megaphone,
+    lead: "Mais anúncios",
+    rest: "não resolvem uma oferta que ninguém entende.",
+  },
+  {
+    icon: Users,
+    lead: "Mais leads",
+    rest: "não resolvem um comercial que não acompanha.",
+  },
+  {
+    icon: FileText,
+    lead: "Mais conteúdo",
+    rest: "não resolve uma marca que não sabe o que quer dizer.",
+  },
+  {
+    icon: Radio,
+    lead: "Mais alcance",
+    rest: "não resolve uma experiência ruim depois do primeiro contato.",
+  },
 ];
 
 export function ReframeSection() {
   return (
     <section className="paper-atmosphere relative isolate overflow-hidden pt-20 pb-24 text-ink sm:pt-28 sm:pb-32 lg:pt-32 lg:pb-36">
-      {/* Luz ambiente difusa no topo para suavizar a transição */}
+      {/* Transição do ambiente escuro anterior para o claro desta seção */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-48 bg-gradient-to-b from-ink/10 to-transparent"
+        className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-ink via-ink/40 to-transparent sm:h-96"
       />
       <div
         aria-hidden="true"
@@ -29,8 +45,8 @@ export function ReframeSection() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-[28ch]"
         >
-          <h2 className="headline text-[2.125rem] leading-[1.08] text-ink sm:text-[2.75rem] lg:text-[3.375rem]">
-            Antes de escolher a solução, precisamos encontrar o problema certo.
+          <h2 className="headline text-[2.125rem] leading-[1.08] text-ink sm:text-[2.75rem] lg:text-[3.375rem] mt-10 md:mt-50">
+            Antes da solução, encontre o problema certo.
           </h2>
         </motion.div>
 
@@ -46,7 +62,10 @@ export function ReframeSection() {
               whileHover={{ y: -5, transition: { duration: 0.2 } }}
               className="glass-surface-light soft-surface rounded-2xl p-6 transition-all duration-300 hover:shadow-lg sm:p-7"
             >
-              <p className="text-[1.0625rem] leading-relaxed text-ink/80 sm:text-[1.1875rem]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-ink/5 text-ink/70 ring-1 ring-ink/10">
+                <item.icon aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
+              </span>
+              <p className="mt-4 text-[1.0625rem] leading-relaxed text-ink/80 sm:text-[1.1875rem]">
                 <span className="font-bold text-ink">{item.lead}</span> {item.rest}
               </p>
             </motion.div>

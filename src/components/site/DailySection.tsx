@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { motion } from "framer-motion";
 
 /**
@@ -8,6 +9,8 @@ import { motion } from "framer-motion";
  * da seção em vez de parecer um ícone pequeno esticado.
  */
 function PersonSilhouette({ className = "" }) {
+  const gradientId = useId();
+
   return (
     <svg
       viewBox="0 0 200 220"
@@ -15,12 +18,20 @@ function PersonSilhouette({ className = "" }) {
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
+      <defs>
+        {/* Busto dissolvendo para baixo, como se entrasse na sombra */}
+        <linearGradient id={`${gradientId}-bust`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="var(--mist)" stopOpacity="0.9" />
+          <stop offset="55%" stopColor="var(--mist)" stopOpacity="0.55" />
+          <stop offset="100%" stopColor="var(--mist)" stopOpacity="0" />
+        </linearGradient>
+      </defs>
       {/* Cabeça */}
       <circle cx="100" cy="58" r="52" className="fill-mist" />
       {/* Busto / ombros */}
       <path
         d="M6 220 C6 146 46 112 100 112 C154 112 194 146 194 220 Z"
-        className="fill-mist/90"
+        fill={`url(#${gradientId}-bust)`}
       />
     </svg>
   );
@@ -148,6 +159,11 @@ export function DailySection() {
                 className="relative z-10 h-[78%] w-[78%] cursor-pointer will-change-transform"
               >
                 <PersonSilhouette className="h-full w-full" />
+                {/* Sombra difusa abaixo do personagem */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -bottom-6 left-1/2 h-16 w-[85%] -translate-x-1/2 rounded-[50%] bg-[radial-gradient(ellipse_at_center,theme(colors.ink/85%),transparent_70%)] sm:-bottom-8 sm:h-20"
+                />
               </motion.div>
             </div>
           </motion.div>

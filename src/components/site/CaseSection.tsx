@@ -1,8 +1,49 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
+import inova1 from "@/assets/inova.webp";
+import inova2 from "@/assets/inova-2.webp";
+import inova3 from "@/assets/inova-3.webp";
+
+const BACKGROUNDS = [inova1, inova2, inova3];
+const BACKGROUND_INTERVAL_MS = 5000;
+
 export function CaseSection() {
+  const [activeBackground, setActiveBackground] = useState(0);
+
+  // Troca o fundo da Innova em loop, esmaecendo de uma foto para a outra
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const timer = window.setInterval(() => {
+      setActiveBackground((curr) => (curr + 1) % BACKGROUNDS.length);
+    }, BACKGROUND_INTERVAL_MS);
+
+    return () => window.clearInterval(timer);
+  }, []);
+
   return (
     <section className="bg-mist relative isolate overflow-hidden pt-20 pb-24 text-ink sm:pt-28 sm:pb-32 lg:pt-32 lg:pb-36">
+      {/* Fundo da Innova: fotos alternando com fade */}
+      {BACKGROUNDS.map((src, idx) => (
+        <img
+          key={src}
+          src={src}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          className={`pointer-events-none absolute inset-0 -z-10 h-full w-full object-cover transition-opacity duration-[1800ms] ease-in-out ${
+            idx === activeBackground ? "opacity-100" : "opacity-0"
+          }`}
+        />
+      ))}
+      {/* Véu claro para manter o texto legível sobre as fotos */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-mist/80" />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-mist via-transparent to-mist"
+      />
+
       {/* Luz ambiente */}
       <div
         aria-hidden="true"

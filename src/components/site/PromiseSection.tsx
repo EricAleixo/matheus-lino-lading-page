@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 
+import gestorSituacaoReal from "@/assets/gestor-situacao-real.webp";
+
 const QUESTIONS = [
   "O que devemos fazer?",
   "Por que devemos fazer?",
@@ -14,6 +16,25 @@ const QUESTIONS = [
 export function PromiseSection() {
   return (
     <section className="relative isolate overflow-hidden bg-mist pt-20 pb-24 text-ink sm:pt-28 sm:pb-32 lg:pt-32 lg:pb-36">
+      {/* Foto de fundo: gestor em situação real, à direita, dissolvendo em gradiente */}
+      <img
+        src={gestorSituacaoReal}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="pointer-events-none absolute inset-y-0 right-0 -z-10 h-full w-full object-cover object-[center_35%] lg:w-[60%]"
+      />
+      {/* Gradiente: da cor da seção (esquerda) para a foto (direita) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-mist/85 lg:bg-transparent lg:bg-gradient-to-r lg:from-mist lg:from-40% lg:via-mist/80 lg:via-55% lg:to-mist/10"
+      />
+      {/* Suaviza as bordas superior e inferior da foto */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 bg-gradient-to-b from-mist via-transparent to-mist"
+      />
+
       {/* Luz ambiente suave */}
       <div
         aria-hidden="true"

@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Target, Sparkles, Globe } from "lucide-react";
 
+import reuniaoGeral2 from "@/assets/reuniao-geral-2.webp";
+
 const ATTEMPTS = [
   {
     icon: Target,
@@ -191,6 +193,20 @@ export function DarkShotsSection() {
                   </motion.button>
                 );
               })}
+            </div>
+
+            {/* Foto: reunião de planejamento de marketing */}
+            <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-steel/15">
+              <img
+                src={reuniaoGeral2}
+                alt="Reunião de planejamento discutindo as ações de marketing da empresa"
+                loading="lazy"
+                className="aspect-[16/10] w-full object-cover"
+              />
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"
+              />
             </div>
           </motion.div>
         </div>
