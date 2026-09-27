@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Target, Sparkles, Globe } from "lucide-react";
 
@@ -48,6 +48,12 @@ export function DarkShotsSection() {
   const prev = () => setStep((curr) => curr - 1);
   const next = () => setStep((curr) => curr + 1);
   const goTo = (idx: number) => setStep((curr) => curr + (idx - mod(curr, ATTEMPTS.length)));
+
+  // Avanço automático a cada 4s; o timer reinicia sempre que o passo muda (inclusive por clique)
+  useEffect(() => {
+    const timer = setTimeout(() => setStep((curr) => curr + 1), 4000);
+    return () => clearTimeout(timer);
+  }, [step]);
 
   // Fallback para ATTEMPTS[0] garante que o TypeScript nunca veja `undefined`
   const activeAttempt = ATTEMPTS[activeIndex] ?? ATTEMPTS[0];
