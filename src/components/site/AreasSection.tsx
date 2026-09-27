@@ -62,18 +62,20 @@ export function AreasSection() {
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
               className="glass-surface-light soft-surface group rounded-2xl p-6 transition-all duration-300 hover:shadow-xl sm:p-7"
             >
-              <div className="flex items-center justify-between">
-                <span className="tag-mono text-[0.6875rem] text-ink/40">0{index + 1} // ÁREA</span>
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-ink/5 text-ink/70 ring-1 ring-ink/10 transition-colors duration-300 group-hover:bg-ink/10">
-                  <item.icon aria-hidden="true" className="h-4.5 w-4.5" strokeWidth={1.75} />
+              <span className="tag-mono block text-left text-[0.6875rem] text-ink/40">0{index + 1} // ÁREA</span>
+              <div className="mt-4 flex items-start gap-4 text-left">
+                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ink/5 text-ink/70 ring-1 ring-ink/10 transition-colors duration-300 group-hover:bg-ink/10">
+                  <item.icon aria-hidden="true" className="h-5 w-5" strokeWidth={1.75} />
                 </span>
+                <div className="min-w-0">
+                  <h3 className="headline text-[1.1875rem] text-ink sm:text-[1.3125rem]">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-base leading-[1.75] text-ink/70 sm:text-[1.0625rem]">
+                    {item.description}
+                  </p>
+                </div>
               </div>
-              <h3 className="headline mt-3 text-[1.1875rem] text-ink sm:text-[1.3125rem]">
-                {item.title}
-              </h3>
-              <p className="mt-3 text-base leading-[1.75] text-ink/70 sm:text-[1.0625rem]">
-                {item.description}
-              </p>
             </motion.div>
           ))}
         </div>

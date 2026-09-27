@@ -3,6 +3,16 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Target, Sparkles, Globe } from "lucide-react";
 
 import reuniaoGeral2 from "@/assets/reuniao-geral-2.webp";
+import inova from "@/assets/inova.webp";
+import inova2 from "@/assets/inova-2.webp";
+import inova3 from "@/assets/inova-3.webp";
+
+const IMAGES = [
+  { src: reuniaoGeral2, alt: "Reunião de planejamento discutindo as ações de marketing da empresa" },
+  { src: inova, alt: "Equipe reunida discutindo estratégias de marketing" },
+  { src: inova2, alt: "Equipe reunida discutindo estratégias de marketing" },
+  { src: inova3, alt: "Equipe reunida discutindo estratégias de marketing" },
+] as const;
 
 const ATTEMPTS = [
   {
@@ -29,20 +39,19 @@ const ATTEMPTS = [
 ] as const;
 
 export function DarkShotsSection() {
-  const [activeIndex, setActiveIndex] = useState(0);
+  // Passo global: card e imagem avançam juntos, cada um ciclando no seu próprio tamanho
+  const [step, setStep] = useState(0);
+  const mod = (n: number, m: number) => ((n % m) + m) % m;
+  const activeIndex = mod(step, ATTEMPTS.length);
+  const imageIndex = mod(step, IMAGES.length);
 
-  const prev = () =>
-    setActiveIndex((curr) =>
-      curr === 0 ? ATTEMPTS.length - 1 : curr - 1
-    );
-
-  const next = () =>
-    setActiveIndex((curr) =>
-      curr === ATTEMPTS.length - 1 ? 0 : curr + 1
-    );
+  const prev = () => setStep((curr) => curr - 1);
+  const next = () => setStep((curr) => curr + 1);
+  const goTo = (idx: number) => setStep((curr) => curr + (idx - mod(curr, ATTEMPTS.length)));
 
   // Fallback para ATTEMPTS[0] garante que o TypeScript nunca veja `undefined`
   const activeAttempt = ATTEMPTS[activeIndex] ?? ATTEMPTS[0];
+  const activeImage = IMAGES[imageIndex] ?? IMAGES[0];
 
   return (
     <section className="relative isolate overflow-hidden pt-12 pb-24 text-mist sm:pt-16 sm:pb-32 lg:pt-20 lg:pb-36">
@@ -53,7 +62,12 @@ export function DarkShotsSection() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-20 left-10 h-80 w-80 rounded-full bg-steel/5 blur-[100px]"
+        className="pointer-events-none absolute bottom-48 left-10 h-80 w-80 rounded-full bg-steel/5 blur-[100px]"
+      />
+      {/* Assenta o fundo em ink puro para emendar com o fade da ReframeSection */}
+      <div
+        aria-hidden="true"
+        className="ink-fade-up pointer-events-none absolute inset-x-0 bottom-0 h-48 sm:h-64"
       />
 
       <div className="relative mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-12">
@@ -130,8 +144,29 @@ export function DarkShotsSection() {
               </div>
             </div>
 
+            {/* Carrossel de fotos sincronizado com o card */}
+            <div className="relative mt-2 aspect-[16/10] overflow-hidden rounded-[2rem] border border-steel/15">
+              <AnimatePresence initial={false}>
+                <motion.img
+                  key={imageIndex}
+                  src={activeImage.src}
+                  alt={activeImage.alt}
+                  loading="lazy"
+                  initial={{ opacity: 0, scale: 1.04 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </AnimatePresence>
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"
+              />
+            </div>
+
             {/* Card Principal em Destaque do Carrossel com AnimatePresence */}
-            <div className="glass-panel-accent relative mt-2 min-h-[260px] overflow-hidden rounded-[2rem] p-7 sm:min-h-[280px] sm:p-9">
+            <div className="glass-panel-accent relative mt-4 min-h-[260px] overflow-hidden rounded-[2rem] p-7 sm:min-h-[280px] sm:p-9">
               <div
                 aria-hidden="true"
                 className="pointer-events-none absolute -right-12 -top-12 h-44 w-44 rounded-full bg-steel/15 blur-2xl"
@@ -180,7 +215,7 @@ export function DarkShotsSection() {
                     whileTap={{ scale: 0.97 }}
                     key={item.tag}
                     type="button"
-                    onClick={() => setActiveIndex(idx)}
+                    onClick={() => goTo(idx)}
                     className={`glass-panel-dark cursor-pointer rounded-2xl p-3.5 text-left transition-all duration-300 focus-visible:outline-2 focus-visible:outline-steel ${isActive
                       ? "border-mist/60 bg-deep/70 shadow-[0_0_20px_rgba(227,228,232,0.15)]"
                       : "opacity-60 hover:opacity-100 hover:bg-deep/40"
@@ -195,19 +230,6 @@ export function DarkShotsSection() {
               })}
             </div>
 
-            {/* Foto: reunião de planejamento de marketing */}
-            <div className="relative mt-6 overflow-hidden rounded-[2rem] border border-steel/15">
-              <img
-                src={reuniaoGeral2}
-                alt="Reunião de planejamento discutindo as ações de marketing da empresa"
-                loading="lazy"
-                className="aspect-[16/10] w-full object-cover"
-              />
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/60 via-transparent to-transparent"
-              />
-            </div>
           </motion.div>
         </div>
       </div>

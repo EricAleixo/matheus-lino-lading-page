@@ -27,14 +27,14 @@ const PAIRS = [
 export function ReframeSection() {
   return (
     <section className="paper-atmosphere relative isolate overflow-hidden pt-20 pb-24 text-ink sm:pt-28 sm:pb-32 lg:pt-32 lg:pb-36">
-      {/* Transição do ambiente escuro anterior para o claro desta seção */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-b from-ink via-ink/40 to-transparent sm:h-96"
-      />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-20 top-20 h-96 w-96 rounded-full bg-paper blur-[100px]"
+      />
+      {/* Transição do ambiente escuro anterior para o claro desta seção */}
+      <div
+        aria-hidden="true"
+        className="ink-fade-down pointer-events-none absolute inset-x-0 top-0 h-80 sm:h-[28rem]"
       />
 
       <div className="relative mx-auto w-full max-w-[1180px] px-5 sm:px-8 lg:px-12">
