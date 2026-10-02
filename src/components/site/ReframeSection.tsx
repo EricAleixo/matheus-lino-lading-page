@@ -45,8 +45,8 @@ export function ReframeSection() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="max-w-[28ch]"
         >
-          <h2 className="headline text-[2.125rem] leading-[1.08] text-ink sm:text-[2.75rem] lg:text-[3.375rem] mt-10 md:mt-50">
-            Antes da solução, encontre o problema certo.
+          <h2 className="headline text-[2.125rem] leading-[1.08] text-black sm:text-[2.75rem] lg:text-[3.375rem] mt-10 md:mt-50">
+            <span className="text-white md:text-black">Antes da solução,</span> encontre o problema certo.
           </h2>
         </motion.div>
 
