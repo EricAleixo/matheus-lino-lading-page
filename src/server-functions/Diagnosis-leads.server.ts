@@ -28,6 +28,7 @@ export const submitDiagnosisLead = createServerFn({ method: "POST" })
         const secret = process.env["CRM_SITE_LEADS_SECRET"];
 
         if (!endpoint || !secret) {
+            console.error("[diagnosis-lead] CRM_SITE_LEADS_ENDPOINT ou CRM_SITE_LEADS_SECRET não configurados.");
             return { ok: false, message: "Não foi possível enviar o diagnóstico agora." };
         }
 
@@ -68,6 +69,8 @@ export const submitDiagnosisLead = createServerFn({ method: "POST" })
             });
 
             if (!response.ok) {
+                const errorBody = await response.text().catch(() => "");
+                console.error(`[diagnosis-lead] CRM respondeu ${response.status}: ${errorBody}`);
                 return { ok: false, message: "Não foi possível enviar o diagnóstico agora." };
             }
 
@@ -75,7 +78,8 @@ export const submitDiagnosisLead = createServerFn({ method: "POST" })
             const hasLeadId = Object.prototype.hasOwnProperty.call(crmResponse, "leadId");
 
             return { ok: true, ...(hasLeadId ? { leadId: crmResponse.leadId ?? null } : {}) };
-        } catch {
+        } catch (error) {
+            console.error("[diagnosis-lead] Falha ao chamar o CRM:", error);
             return { ok: false, message: "Não foi possível enviar o diagnóstico agora." };
         }
     });
