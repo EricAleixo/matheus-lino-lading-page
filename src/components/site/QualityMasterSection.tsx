@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 
-import qmLogo from "@/assets/qm-logo.png.asset.json";
+import qualityMasterLogo from "@/assets/quality-master-logo.svg";
 import qmSymbol from "@/assets/qm-symbol.png.asset.json";
 
 const CAPABILITIES = ["Audiovisual", "Design", "Planilhas", "Sites", "Social media", "Automações"];
@@ -55,11 +55,11 @@ export function QualityMasterSection() {
             <div className="logo-animated-wrapper glass-panel-accent mt-10 rounded-2xl p-7 sm:p-9">
               <div className="logo-sheen-sweep" />
               <img
-                src={qmLogo.url}
+                src={qualityMasterLogo}
                 alt="Quality Master"
                 className="relative h-11 w-auto opacity-95 sm:h-14"
-                width={2238}
-                height={507}
+                width={1374}
+                height={322}
                 loading="lazy"
               />
             </div>

@@ -1,3 +1,4 @@
+import matheusSobre from "@/assets/matheus-sobre.svg";
 import matheusFundo from "@/assets/matheus-fundo.webp";
 
 export function AboutSection() {
@@ -16,17 +17,17 @@ export function AboutSection() {
         className="pointer-events-none absolute inset-y-0 right-[33%] hidden w-[12%] bg-gradient-to-r from-paper to-transparent lg:block"
       />
 
-      {/* Foto de fundo no mobile/tablet: ocupa o topo e dissolve no papel */}
+      {/* Foto de fundo no mobile/tablet: abaixo do identificador da seção, dissolve no papel */}
       <img
-        src={matheusFundo}
+        src={matheusSobre}
         alt=""
         aria-hidden="true"
         loading="lazy"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[520px] w-full object-cover object-[80%_top] sm:h-[680px] lg:hidden"
+        className="pointer-events-none absolute inset-x-0 top-32 h-[520px] w-full object-cover object-[center_top] sm:top-44 sm:h-[680px] lg:hidden"
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-gradient-to-b from-paper/40 via-transparent via-40% to-paper sm:h-[680px] lg:hidden"
+        className="pointer-events-none absolute inset-x-0 top-32 h-[520px] bg-gradient-to-b from-paper/40 via-transparent via-40% to-paper sm:top-44 sm:h-[680px] lg:hidden"
       />
 
       {/* Luz ambiente difusa */}
@@ -40,7 +41,7 @@ export function AboutSection() {
         <span className="tag-mono text-[0.6875rem] text-ink/50">QUEM É MATHEUS LINO?</span>
 
         {/* No mobile/tablet o texto começa abaixo da foto de fundo */}
-        <div className="mt-[260px] grid gap-10 sm:mt-[380px] lg:mt-8 lg:max-w-[52%]">
+        <div className="mt-[400px] grid gap-10 sm:mt-[560px] lg:mt-8 lg:max-w-[52%]">
           {/* Headline */}
           <div>
             <h2 className="headline text-[2.125rem] leading-[1.1] text-ink sm:text-[2.75rem] lg:text-[3.25rem]">
